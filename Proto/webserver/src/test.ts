@@ -1,13 +1,12 @@
 import Express, {Request, Response}  from 'express'
 import {createReadStream} from 'fs'
-import { Readable } from 'stream'
-import { pipeline } from 'stream/promises'
+import cors from 'cors'
 
 
 const app = Express()
 
 
-
+app.use(cors({origin:['http://localhost:5173']}))
 
 app.get('/', (req: Request, res: Response) => {
     
@@ -15,7 +14,8 @@ app.get('/', (req: Request, res: Response) => {
         "Content-Type":"video/mp4"
     })
 
-        try {
+    try {
+            console.log('deu certo')
             const stream = createReadStream('videos/video.mp4')
             stream.pipe(res)
 

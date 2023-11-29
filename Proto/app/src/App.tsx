@@ -21,11 +21,11 @@ function App() {
     }
 
     fetchVideo();
-  }, []); // Chama a função uma vez quando o componente é montado
+  }, []); 
 
   return (
     <div>
-      {videoUrl && <video controls width="400" src={videoUrl ? videoUrl : '/'} ></video>}
+      <video controls width="400" src="http://localhost:3000" ></video>
     </div>
   );
 }
