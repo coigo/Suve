@@ -1,5 +1,6 @@
 
-import { ReadStream, statSync} from 'fs'
+import { createReadStream, ReadStream, statSync} from 'fs'
+
 
 type props = {
     id: string
@@ -11,9 +12,9 @@ interface headers {
 
 export default class WatchService {
 
-    constructor ( headers: headers ) {
+    constructor ( headers?: headers ) {
         
-        this.headers = headers
+        
         
     }
     
@@ -25,17 +26,11 @@ export default class WatchService {
         
         
         try {
-            const videoPath =  'C:/Users/CODIG/SUVE/Proto/webserver/videos/video.mp4'
-            const size = this.videoSize( videoPath )
+            const videoPath = './videos/video.mp4'
+            
+            return createReadStream(videoPath)
 
-            const { range } = this.headers
-
-            const chunk_start = Number( range.replace( /\D/g, "" ))
-            const chunk_end = Math.min( chunk_start + this.chunk_size, size -1 )
-            const video_length = chunk_end - chunk_start +1
-
-            const headers
-
+            
             
         }
         catch ( err ) {
