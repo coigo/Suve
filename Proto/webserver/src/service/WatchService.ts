@@ -1,59 +1,45 @@
 
 import { createReadStream, ReadStream, statSync} from 'fs'
+import { Readable, pipeline } from 'stream'
+import { promisify } from 'util'
+import { Response } from 'express'
 
 
 type props = {
     id: string
 }
 
-interface headers {
-    range: string,
+interface videosStreamProps {
+    driveBack: Response
+    repository? ( video: string ): string | {}
 }
+
+
 
 export default class WatchService {
 
-    constructor ( headers?: headers ) {
-        
-        
-        
-    }
-    
-    private headers: headers
-    private chunk_size = 10e6
-    
+    constructor ({driveBack, repository }: videosStreamProps ) {
+        console.log(driveBack)
+        this.external = { driveBack, repository }
 
-    startStreaming (  ) {
-        
+    }    
+
+    private external: videosStreamProps
+
+
+    public async startStreaming ( props ) {
         
         try {
+            const PromissedPipeline = promisify(pipeline)
             const videoPath = './videos/video.mp4'
             
-            return createReadStream(videoPath)
+            createReadStream(videoPath)
+            .pipe(this.external.driveBack)
 
-            
-            
         }
-        catch ( err ) {
+        catch (err) {
             console.log(err)
-            throw err
         }
-        
     }
-    
-    
-    private  videoSize ( videoPath: string ) {
-        
-        try {            
-            const videoSize = statSync(videoPath).size
-            return videoSize
-
-        }
-        catch ( err ) {
-            throw err
-        }
-
-    }
-
-    
 
 }

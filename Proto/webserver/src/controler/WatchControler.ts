@@ -5,20 +5,18 @@ import WatchService from "../service/WatchService";
 export default class WatchControler {
 
     async handle ( req: Request, res: Response ) {
-
-        try {
-
-            const stream = new WatchService()
-            const s = stream.startStreaming()
-            s.pipe(res)
-
-        }
-        catch ( err ) {
-            res.status(500).end()
-        }
-
+        
+        const driveBack = res
+        const watchService = new WatchService({
+            driveBack
+        })
+        const videoStream = watchService.startStreaming('aa')
+        
 
 
     }
+    
+    
+        
 
 }
