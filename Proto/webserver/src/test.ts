@@ -3,8 +3,8 @@ import {createReadStream} from 'fs'
 import cors from 'cors'
 
 
-const app = Express()
 
+const app = Express()
 
 app.use(cors({origin:['http://localhost:5173']}))
 

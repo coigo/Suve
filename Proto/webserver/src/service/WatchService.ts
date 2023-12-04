@@ -33,12 +33,19 @@ export default class WatchService {
             const PromissedPipeline = promisify(pipeline)
             const videoPath = './videos/video.mp4'
             
-            createReadStream(videoPath)
-            .pipe(this.external.driveBack)
+            const stream = createReadStream(videoPath)
+            stream.on('data', data => {
+                console.log(data.toString())
+                this.external.driveBack.write(data)
+            })
+            stream.on('end', () => {
+                this.external.driveBack.end()
+            })
 
         }
         catch (err) {
-            console.log(err)
+            console.log('deu ruim')
+  
         }
     }
 
