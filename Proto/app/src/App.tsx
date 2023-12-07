@@ -25,9 +25,10 @@ function App() {
 
   return (
     <div>
-      <video controls width="400" src="http://localhost:3000" ></video>
+      <video controls width="400" src="http://localhost:3000/watch" ></video>
     </div>
   );
 }
 
 export default App
+
