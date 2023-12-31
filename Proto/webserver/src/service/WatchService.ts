@@ -1,7 +1,5 @@
 
-import { createReadStream, ReadStream, statSync} from 'fs'
-import { Readable, pipeline } from 'stream'
-import { promisify } from 'util'
+import { createReadStream } from 'fs'
 import { Response } from 'express'
 
 
@@ -10,41 +8,43 @@ type props = {
 }
 
 interface videosStreamProps {
-    driveBack: Response
-    repository? ( video: string ): string | {}
+    find (video_id: any): Promise<string | null | undefined>
 }
 
-
+type driveback = Response
 
 export default class WatchService {
 
-    constructor ({driveBack, repository }: videosStreamProps ) {
+    constructor ( driveBack: driveback, repository: videosStreamProps ) {
         console.log(driveBack)
-        this.external = { driveBack, repository }
+        this.driveBack =  driveBack
+        this.repository = repository
 
     }    
 
-    private external: videosStreamProps
+    private driveBack: driveback
+    private repository: videosStreamProps
 
 
-    public async startStreaming ( props ) {
+    public async startStreaming ( video_id ) {
         
         try {
-            const PromissedPipeline = promisify(pipeline)
-            const videoPath = './videos/video.mp4'
-            
-            const stream = createReadStream(videoPath)
-            stream.on('data', data => {
-                console.log(data.toString())
-                this.external.driveBack.write(data)
-            })
-            stream.on('end', () => {
-                this.external.driveBack.end()
-            })
+            console.log(this.repository)
+            const videoPath = await this.repository.find(video_id)
+            if( videoPath ) {
+                const stream = createReadStream(videoPath)
+                stream.on('data', data => {
+                    this.driveBack.write(data)
+                })
+                stream.on('end', () => {
+                    this.driveBack.end()
+                })
+            }
 
         }
         catch (err) {
             console.log('deu ruim')
+            throw err
   
         }
     }

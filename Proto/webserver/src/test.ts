@@ -3,7 +3,7 @@ import {createReadStream} from 'fs'
 import cors from 'cors'
 import multer from 'multer'
 import { randomUUID } from 'crypto'
-import { storage } from './multer-config'
+import config from './multer-config'
 
 
 
@@ -36,11 +36,13 @@ import { storage } from './multer-config'
 //     console.log('Aplicação aberta na porta 3000')
 // })
 
+const {storage, fileFilter} = config
 
-
-const upload = multer({storage:storage})
+const upload = multer({storage, fileFilter})
 
 const app = Express()
+
+app.use(cors({origin:['http://localhost:3001']}))
 
 app.post('/upload', upload.single('file'), (req: Request, res:Response) => {
 console.log('chegou o disco voador')
