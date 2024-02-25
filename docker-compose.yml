@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=SUVE
+    volumes:
+      - postgres:/docker-entrypoint-initdb.d/postgresql
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb:/docker-entrypoint-initdb.d/mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    
+  redis:
+    image: redis:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis:/docker-entrypoint-initdb.d/redis'
+
+volumes:
+  mongodb:
+    driver: local
+  postgres:
+    driver: local
+  redis:
+    driver: local

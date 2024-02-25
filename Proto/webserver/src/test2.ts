@@ -1,7 +1,4 @@
 import Express, { Request, Response } from 'express';
-import multer from 'multer';
-import { randomUUID } from "crypto";
-import { storage } from './multer-config.ts'
 
 const app = Express()
 
