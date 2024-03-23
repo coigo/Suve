@@ -25,7 +25,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 ) : null}
                 <input
                     ref={ref}
-                    className={`bg-vive_items p-4 border rounded-lg ${inputSize[width]} placeholder:text-lg`}
+                    className={`bg-vive_items p-4 border border-gray-600 rounded-lg text-xl ${inputSize[width]} placeholder:text-lg`}
                     id={name}
                     name={name}
                     type={type}

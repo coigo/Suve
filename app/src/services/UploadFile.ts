@@ -21,17 +21,30 @@ export default class UploadFile {
     }
 
 
-    public async processUpload(uploadedFile: fileProps) {
+    public async processUploadVideo(uploadedFile: fileProps) {
         const data = new FormData()
         const { file } = uploadedFile
         console.log(file)
         data.append('file', file)
         try {
-            api.post(`/upload`, data)
-            return true
+            return api.post('/upload', data)
         } catch ( err ) {
             console.log(err)
             return false
         }
+    }
+    
+    public async processUploadImage(uploadedFile: fileProps) {
+        const data = new FormData()
+        const { file } = uploadedFile
+        console.log(file)
+        data.append('file', file)
+        try {
+            return api.post('/upload', data)
+        } catch ( err ) {
+            console.log(err)
+            return false
+        }
+        
     }
 }
