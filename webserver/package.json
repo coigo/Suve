@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "test": "tsx watch src/test.ts"
+    "test": "tsx watch src/test2.ts"
   },
   "author": "",
   "license": "ISC",
