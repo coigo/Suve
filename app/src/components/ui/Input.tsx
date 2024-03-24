@@ -8,7 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-    ({ label, name, type, placeholder, width }, ref) => {
+    ( props: InputProps, ref) => {
         const inputSize = {
             sm: "w-1/3",
             md: "w-1/2",
@@ -18,18 +18,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         return (
             <div className="flex flex-col items-start">
-                {label ? (
-                    <label className="text-lg mb-2" htmlFor={name}>
-                        {label}
+                {props.label ? (
+                    <label className="text-lg mb-2" htmlFor={props.name}>
+                        {props.label}
                     </label>
                 ) : null}
                 <input
                     ref={ref}
-                    className={`bg-vive_items p-4 border border-gray-600 rounded-lg text-xl ${inputSize[width]} placeholder:text-lg`}
-                    id={name}
-                    name={name}
-                    type={type}
-                    placeholder={placeholder}
+                    className={`bg-vive_items p-4 border border-gray-600 rounded-lg text-xl ${inputSize[props.width]} placeholder:text-lg`}
+                    {...props}
                 />
             </div>
         );

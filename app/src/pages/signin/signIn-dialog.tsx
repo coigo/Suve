@@ -11,7 +11,7 @@ export function SignInDialog() {
 
 	const { register, handleSubmit } = useForm<user>();
 
-    function handleCreateUser(data: user) { 
+    function handleLogin(data: user) { 
         console.log(data);
     }
     
@@ -27,7 +27,7 @@ export function SignInDialog() {
 				<Dialog.Content className="fixed p-5 md:left-1/2 md:top-1/2 inset-0 md:inset-auto md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[520px] md:h-[60vh] w-full bg-vive_items rounded-xl flex flex-col outlite-none overflow-hidden">
                     
 					<form
-						onSubmit={handleSubmit(handleCreateUser)}
+						onSubmit={handleSubmit(handleLogin)}
 						className="w-full h-full flex-col"
 					>
 						<div className="h-3/4">
@@ -36,10 +36,11 @@ export function SignInDialog() {
 							</div>
 							<br />
                             
-							<div className="p-8 gap-4">
+							<div className="p-8 gap-4 mt-5">
 								<Input
 									type="email"
 									width="full"
+									label="E-mail"
 									placeholder="E-mail"
 									{...register("email")}
 								/>
