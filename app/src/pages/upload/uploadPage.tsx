@@ -19,9 +19,9 @@ export default function UploadPage() {
 
     useEffect( () => {
         if ( uploadedFile.readableSize ) {
-            uploadFile.processUpload(uploadedFile)
+            uploadFile.processUploadVideo(uploadedFile)
         }
-    }, [uploadedFile])
+    }, [uploadedFile, uploadFile.processUploadVideo])
 
     return (
         <>

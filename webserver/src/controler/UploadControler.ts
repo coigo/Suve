@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import UploadService from "../service/UploadService";
 import VideoRepository from "../repository/videoRepository";
 

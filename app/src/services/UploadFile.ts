@@ -40,7 +40,7 @@ export default class UploadFile {
         console.log(file)
         data.append('file', file)
         try {
-            return api.post('/upload', data)
+            return api.post('/upload/image', data)
         } catch ( err ) {
             console.log(err)
             return false

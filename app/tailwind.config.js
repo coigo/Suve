@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {
       colors:{
+        vive_items_50:'##201c1c',
         vive_items:'#1F1F1F',
         vive_main:'#6655D7'
       }

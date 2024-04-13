@@ -7,7 +7,7 @@ import cors from 'cors'
 dotenv.config()
 
 const app = Express()
-const PORT = 3000
+const PORT = process.env.apiPort 
 const mongoPath = process.env.mongoPath 
 const url = process.env.appUrl
 
@@ -15,6 +15,7 @@ MongoConnect(mongoPath)
 
 app.use(cors({origin: ["http://localhost:5173"] }))
 app.use(Express.urlencoded({extended: true}))
+app.use(Express.json())
 app.use('/', router)
 
 app.listen(PORT, () => {

@@ -1,6 +1,6 @@
 
-import { createReadStream } from 'fs'
-import { Response } from 'express'
+import { createReadStream } from 'node:fs'
+import type { Response } from 'express'
 
 
 type props = {
@@ -8,7 +8,7 @@ type props = {
 }
 
 interface videosStreamProps {
-    find (video_id: any): Promise<string | null | undefined>
+    find (video_id: string): Promise<string | null | undefined>
 }
 
 type driveback = Response
