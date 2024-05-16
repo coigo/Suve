@@ -1,8 +1,15 @@
+import { toast } from "sonner";
 import { SignInDialog } from "../signin/signIn-dialog";
 import { SignUpDialog } from "../signup/signUp-page";
 
 export default function HeaderBar() {
+
+	function notify () { toast.success('asdasdasd')};		
+
+
 	return (
+
+		
 		<div className="relative inset-x-0 top-0">
             <div className="p-3 md:justify-center fixed md:left-28 md:-translate-x-1/2 md:flex hidden">
 			    <div className="  bg-vive_main  py-2 px-20 rounded-lg">VIVE</div>

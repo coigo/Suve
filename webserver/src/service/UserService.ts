@@ -1,50 +1,32 @@
-import dotenv from 'dotenv' 
-import axios from 'axios'
+import dotenv from "dotenv";
+import axios from "axios";
 
-
-
-dotenv.config() 
+dotenv.config();
 
 type user = {
-    username:string,
-    email:string
-}   
+	username: string;
+	email: string;
+};
 
 export default class UserService {
+	private userBaseURL;
 
-    private userBaseURL  
+	constructor() {
+		this.userBaseURL = process.env.userBaseURL;
+	}
 
-    constructor () {
-        this.userBaseURL = process.env.userBaseURL
-    }
+	public async signInRequest({ email }: Partial<user>) {
+		const { data: { errors, user } } = await axios.post(`${this.userBaseURL}/login_request`, { email });
+		return { errors, user };
+	}
 
-    public async signInRequest ( {email}: Partial<user> ) {
-        try {
-            const request = await axios.post(`${this.userBaseURL}/login_request`, {email}) 
-            console.log(request);
-            return 'ok'
-            
-        }
-        catch (err) {
-            console.log(err)
-            return
-        }
-    }
+	public async signIn(token: string) {
+		const { data: { jwt, errors, user } } = await axios.post(`${this.userBaseURL}/login`, { token });
+		return { jwt, errors, user };
+	}
 
-    public signIn (  ) {
-
-    }
-
-    public async signUp ( newUser: user ) {
-        try {
-            const signUp = await axios.post(`${this.userBaseURL}/create`, newUser)
-            console.log(signUp)
-            return signUp
-            
-        }
-        catch ( err ) {
-            console.log(err);
-            return
-        }
-    }
+	public async signUp(newUser: user) {
+		const signUp = await axios.post(`${this.userBaseURL}/create`, newUser);
+		return signUp;
+	}
 }

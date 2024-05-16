@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@radix-ui/react-dialog": "^1.0.5",
-    "axios": "^1.6.7",
-    "react-hook-form": "^7.51.0",
-    "sonner": "^1.4.41"
-  }
-}

@@ -2,18 +2,12 @@ import React from 'react';
 import VideoContent from './components/VideoContent';
 import dotenv from 'dotenv';
 
-// dotenv.config();
-
-// const baseUrl = process.env.REACT_APP_baseUrl;
+import { baseURL } from '../../helpers/env';
 
 export default function WatchPage() {
 
     const videoUrl = () => {
-        return `${baseURL()}/watch?video=${CurrentVideoID()}`
-    }
-
-    const baseURL = () => {
-        return import.meta.env.VITE_REACT_APP_baseURL
+        return `${baseURL}/watch?video=${CurrentVideoID()}`
     }
 
     const CurrentVideoID = () => {

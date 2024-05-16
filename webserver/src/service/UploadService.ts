@@ -21,7 +21,6 @@ export default class UploadService {
         this.repository = repository
     }
     
-    
     async writefile (  props: fileProps ) {
         try {
             return await this.saveFileInfos(props)
@@ -30,7 +29,6 @@ export default class UploadService {
             throw err
         }
     }
-
 
     private async saveFileInfos( file: fileProps) {
         const write = await this.repository.writeVideo(file);

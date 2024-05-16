@@ -38,9 +38,7 @@ export default class VideoRepository {
             if (video[0]) {
                 return video[0].url
             }
-            else {
                 return null
-            }
         } catch (err) {
             return null
         }
