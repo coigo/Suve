@@ -1,3 +1,4 @@
+import { truncate } from "fs";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies()
@@ -26,9 +27,14 @@ const auth = {
 
     getAuth: () => {
         const auth = cookies.get('authToken')
-        console.log(auth);
         return auth
-        
+    },
+
+    isLogged: () => {
+        if ( localStorage.getItem("userToken") ) {
+            return true
+        }
+        return false
     }
 }
 

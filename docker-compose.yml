@@ -32,7 +32,8 @@ services:
     depends_on:
       - postgres
     networks:
-      - vive
+      vive:
+        ipv4_address: 172.18.0.5
 
   mongodb:
     image: mongo:latest
