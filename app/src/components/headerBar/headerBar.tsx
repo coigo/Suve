@@ -20,7 +20,7 @@ export default function HeaderBar() {
 				<div>Pesquisar</div>
 				<div>
 				{ auth.isLogged() 
-				? (<UserDropdown />) 
+				? (<UserDropdown logout={auth.logout}/>) 
 				: (<><SignInDialog /> / <SignUpDialog /></>) }
 
 				</div>

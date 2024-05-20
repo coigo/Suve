@@ -1,9 +1,11 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Button, Flex } from "@radix-ui/themes"
 
+interface UserDropdown {
+    logout: () => void
+}
 
-
-export function UserDropdown() {
+export function UserDropdown({logout}: UserDropdown) {
 
     return (
         <DropdownMenu.Root>
@@ -17,7 +19,7 @@ export function UserDropdown() {
                     <DropdownMenu.Item className='' >Account</DropdownMenu.Item>
                     <DropdownMenu.Item>Settings</DropdownMenu.Item>
                     < hr className='my-4'/>
-                    <DropdownMenu.Item>Log out</DropdownMenu.Item>
+                    <DropdownMenu.Item onClick={logout} >Log out</DropdownMenu.Item>
                 </DropdownMenu.Content>
             </DropdownMenu.Portal>
 

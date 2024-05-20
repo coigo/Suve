@@ -35,6 +35,14 @@ const auth = {
             return true
         }
         return false
+    },
+
+    logout: () => {
+        console.log('deslogado');
+        
+        localStorage.removeItem('userToken')
+        cookies.remove('authToken')
+        
     }
 }
 
