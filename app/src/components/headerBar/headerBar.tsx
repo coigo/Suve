@@ -3,6 +3,7 @@ import { SignInDialog } from "../signin/signIn-dialog";
 import { SignUpDialog } from "../signup/signUp-page";
 import auth from "../../helpers/auth";
 import { UserDropdown } from "./userDropdown/userDropdown";
+import { dropdownItems } from "./userDropdown/dropdownItems";
 
 export default function HeaderBar() {
 
@@ -20,7 +21,7 @@ export default function HeaderBar() {
 				<div>Pesquisar</div>
 				<div>
 				{ auth.isLogged() 
-				? (<UserDropdown logout={auth.logout}/>) 
+				? (<UserDropdown dropdownItems={dropdownItems} />) 
 				: (<><SignInDialog /> / <SignUpDialog /></>) }
 
 				</div>
