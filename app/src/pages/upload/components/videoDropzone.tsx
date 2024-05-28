@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-import UploadFile from '../../../services/UploadFile'
+import { toast } from "sonner";
+
 
 interface onUpload {
   onUpload(uploadedFile: File): void
@@ -20,13 +21,6 @@ export default function VideoDropzone({ onUpload }: onUpload) {
         const binaryStr = reader.result
         if (binaryStr instanceof ArrayBuffer) {
           onUpload(file)
-          //   const fileBlob = new Blob([binaryStr])
-
-          //   uploadFile.uploadFile
-          //     ({
-          //       filename:'a',
-          //       file: fileBlob
-          //     })
         }
 
       }
@@ -42,17 +36,20 @@ export default function VideoDropzone({ onUpload }: onUpload) {
     maxFiles: 1,
 
     onDropAccepted: () => {
-
+      toast.success("O video esta sendo processado")
+      
     },
     onDropRejected: () => {
-      console.log('nao aceitooo')
+      toast.error("Apenas aquivos .MP4 sao aceitos")
+      console.log(123);
+      
     }
   })
 
   return (
-    <div className='border-solid border-1 border-indigo-400 h-40 w-62' {...getRootProps()}>
+    <div className='border-dashed rounded-md bg-vive_items p-4 text-center border-2 border-white h-40 w-full' {...getRootProps()}>
       <input {...getInputProps()} />
-      <p>Arraste e solte alguns arquivos aqui, ou clique para selecionar arquivos</p>
+      <p>Arraste e solte algum video aqui, ou clique para selecionar o arquivo</p>
     </div>
   )
 }

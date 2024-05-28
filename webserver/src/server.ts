@@ -13,9 +13,13 @@ const PORT = process.env.apiPort
 const mongoPath = process.env.mongoPath 
 const url = process.env.appUrl
 
-MongoConnect(mongoPath)
+const user = process.env.mongoUser 
+const pass = process.env.mongoPass 
 
-
+await MongoConnect(mongoPath, {
+    user,
+    pass
+ })
 
 app.use(
 	cors({

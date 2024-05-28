@@ -43,10 +43,14 @@ services:
     volumes:
       - mongodb:/docker-entrypoint-initdb.d/mongodb
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root
+      ME_CONFIG_BASICAUTH_USERNAME: vive_dev
+      ME_CONFIG_BASICAUTH_PASSWORD: QAZPLM
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: klr268
     networks:
-      - vive
+      vive:
+        ipv4_address: 172.18.0.4
     
   redis:
     image: redis:latest

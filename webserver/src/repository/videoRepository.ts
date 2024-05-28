@@ -18,6 +18,8 @@ export default class VideoRepository {
                 size: size,
             })
             this.find(this.removeDotmp4(filename))
+            console.log(post);
+            
             return true
         } catch (err) {
             console.log(err)

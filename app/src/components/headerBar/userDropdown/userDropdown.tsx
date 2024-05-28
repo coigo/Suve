@@ -11,7 +11,7 @@ interface UserDropdown {
 
 export function UserDropdown({dropdownItems}: UserDropdown) {
 
-    const itemClass = 'p-12 py-2 outline-none hover:bg-slate-700'
+    const itemClass = 'outline-none hover:bg-slate-700'
 
 
 
@@ -23,7 +23,7 @@ export function UserDropdown({dropdownItems}: UserDropdown) {
             </DropdownMenu.Trigger>
 
             <DropdownMenu.Portal >
-                <DropdownMenu.Content align='end' avoidCollisions sideOffset={20} className='overflow-hidden rounded-md bg-vive_items'>
+                <DropdownMenu.Content align='end' avoidCollisions sideOffset={20} className=' rounded-md bg-vive_items'>
                 {
                     dropdownItems.map((item) => {
                         return (

@@ -3,6 +3,7 @@ import HeaderBar from "../../components/headerBar/headerBar";
 import { Tags } from "./tags";
 
 
+
 export default function MainPage () {
 
     return (
@@ -16,8 +17,11 @@ export default function MainPage () {
 				},
 			}}/>
 
-            <HeaderBar />
 			<Tags />
+
+
+
+            <HeaderBar />
         </div>
     )
 }
