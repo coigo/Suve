@@ -6,13 +6,16 @@ import VideoRepository from "../repository/videoRepository";
 export default class UploadControler {
 
     async handle ( req: Request, res: Response ) {
-        const file = req.file
+        const { file, body: { videoTitle } } = req
+        
         if ( file ) {
             const upload = new UploadService( new VideoRepository() ) 
+            
             const write = upload.writefile({
                 originalname: file.originalname,
                 filename: file.filename,
-                size: file.size
+                size: file.size,
+                videoTitle
             })
             return res.status(200)
         }

@@ -1,11 +1,11 @@
-import axios from "axios"
 import {api} from "./Api"
+import Video from "../pages/upload/Video"
 
 
-interface fileProps {
+interface uploadProps {
     readableSize: string 
-    file: File
-    
+    video: Video 
+    file: File    
 }
 
 interface acceptedUploads {
@@ -20,12 +20,11 @@ export default class UploadFile {
         this.UploadType = UploadType
     }
 
-
-    public async processUploadVideo(uploadedFile: fileProps) {
+    public async processUploadVideo({file, video}: uploadProps) {
         const data = new FormData()
-        const { file } = uploadedFile
-        console.log(file)
         data.append('file', file)
+        data.append('videoTitle',  video.getVideoTitle())
+        
         try {
             return api.post('/upload', data)
         } catch ( err ) {
@@ -34,7 +33,9 @@ export default class UploadFile {
         }
     }
     
-    public async processUploadImage(uploadedFile: fileProps) {
+
+
+    public async processUploadImage(uploadedFile: uploadProps) {
         const data = new FormData()
         const { file } = uploadedFile
         console.log(file)

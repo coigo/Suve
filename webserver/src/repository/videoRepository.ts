@@ -3,19 +3,21 @@ import Video from '../model/Video'
 
 type fileProps = {
     originalname: string
+    videoTitle: string
     filename: string
     size: number
 }
 
 export default class VideoRepository {
 
-    public async writeVideo({ originalname, size, filename }: fileProps) {
+    public async writeVideo({ originalname, size, filename, videoTitle }: fileProps) {
         try {
             const post = await Video.create({
                 id: this.removeDotmp4(filename),
                 url: `./videos/${filename}`,
                 name: originalname,
                 size: size,
+                title: videoTitle
             })
             this.find(this.removeDotmp4(filename))
             console.log(post);
@@ -26,7 +28,6 @@ export default class VideoRepository {
             return false
         }
     }
-
 
     private removeDotmp4(filename: string) {
         const idWithoutMP4 = filename.split('.mp4')

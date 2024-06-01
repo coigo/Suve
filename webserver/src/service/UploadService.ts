@@ -9,6 +9,7 @@ interface uploader {
 
 type fileProps = {
     originalname: string
+    videoTitle: string
     filename: string
     size: number
 }

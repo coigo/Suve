@@ -1,25 +1,39 @@
 import React, { useEffect, useState } from "react";
-import VideoDropzone from './components/videoDropzone'
-import { filesize } from "filesize";
+import Video from "./Video";
 import UploadFile from "../../services/UploadFile";
+import VideoDropzone from './components/videoDropzone'
+
+import { filesize } from "filesize";
 import { Toaster } from "sonner";
 import { Input } from "../../components/ui/Input";
 
+const video = new Video()
 
 export default function UploadPage() {
 
+
     const uploadFile = new UploadFile({ UploadType:'video' })
-    const [uploadedFile, setUploadedFile] = useState({ file: new File([], ''), readableSize: '' })
+    const [uploadedFile, setUploadedFile] = useState({ file: new File([], ''), readableSize: '', video})
+
+    const [videoTitle, setVideoTitle] = useState("")
+
+    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setVideoTitle(event.target.value);
+        video.setVideoTitle(event.target.value)
+    };
 
     const handleUpload = (file: File) => {
         const uploadedFile = {
             file,
-            readableSize: filesize(file.size)
+            readableSize: filesize(file.size),
+            video,
+            videoTitle: ''
         }
         setUploadedFile(uploadedFile)
     }
 
     useEffect( () => {
+        
         if ( uploadedFile.readableSize ) {
             uploadFile.processUploadVideo(uploadedFile)
         }
@@ -52,7 +66,7 @@ export default function UploadPage() {
                     </div>
                 </div>
                 <div className="col-span-6 row-start-2 h-fit">
-                    <Input name="videoTitle" width="full" label="Tilulo do Video" ></Input>
+                    <Input value={videoTitle || ''} onChange={handleTitleChange}  name="videoTitle" width="full" label="Tilulo do Video" ></Input>
                 </div>
                 <div className="col-span-3 row-start-3 ">
                     <Input name="videoTitle" width="full" label="Tilulo do Video" ></Input>
@@ -69,7 +83,7 @@ export default function UploadPage() {
 
                 </div>
             </div>
-    
         </>
     )
+    
 }
