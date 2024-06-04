@@ -77,6 +77,7 @@ export function SignInDialog() {
 									<Input
 										type="email"
 										width="full"
+										border="all"
 										label="E-mail"
 										placeholder="E-mail"
 										{...registerEmail("email")}
@@ -105,6 +106,7 @@ export function SignInDialog() {
 									<Input
 										type="number"
 										width="full"
+										border="all"
 										label="Código"
 										placeholder="Insira o código"
 										{...registerPassKey("passKey")}

@@ -66,13 +66,13 @@ export default function UploadPage() {
                     </div>
                 </div>
                 <div className="col-span-6 row-start-2 h-fit">
-                    <Input value={videoTitle || ''} onChange={handleTitleChange}  name="videoTitle" width="full" label="Tilulo do Video" ></Input>
+                    <Input border="bottom" value={videoTitle || ''} onChange={handleTitleChange}  name="videoTitle" width="full" label="Tilulo do Video" ></Input>
                 </div>
                 <div className="col-span-3 row-start-3 ">
-                    <Input name="videoTitle" width="full" label="Tilulo do Video" ></Input>
+                    <Input border="all" name="videoTitle" width="full" label="Tilulo do Video" ></Input>
                 </div>
                 <div className="col-span-3 col-start-4 row-start-3 ">
-                    <Input name="videoTitle" width="full" label="Tilulo do Video" ></Input>
+                    <Input border="all" name="videoTitle" width="full" label="Tilulo do Video" ></Input>
 
                 </div>
                 <div className="col-span-3 row-span-2 row-start-4">

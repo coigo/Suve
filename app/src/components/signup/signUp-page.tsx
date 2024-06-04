@@ -47,6 +47,7 @@ export function SignUpDialog() {
 							<div className="p-8 gap-4">
 								<Input
 									type="text"
+									border="all"
 									width="full"
 									placeholder="Nome de usuário"
 									{...register("username")}
@@ -57,6 +58,7 @@ export function SignUpDialog() {
 								<Input
 									type="email"
 									width="full"
+									border="all"
 									placeholder="E-mail"
 									{...register("email")}
 								/>

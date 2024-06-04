@@ -19,9 +19,11 @@ import Api from "./Api";
 
 export default {
 
-    signIn: (data: signInData) => {
-			console.log(data);
+    getData: (userId: string) => {
+        return Api.get({path:`/user/data${userId}`}, )
+    },
 
+    signIn: (data: signInData) => {
         return Api.post({path: '/signin', data})
     },
 
@@ -31,5 +33,5 @@ export default {
 
     signUp: (data: signUpData) => {
         return Api.post({path:'/signup', data})
-    }
+    },
 }
