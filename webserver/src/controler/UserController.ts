@@ -1,9 +1,9 @@
 import UserService from "../service/UserService";
 import type { Request, Response } from "express";
-import { asyncErrorHandler } from "./ErrorControler";
+import { asyncErrorHandler } from "./ErrorController";
 import { CustomError } from "../CustomError";
 
-export default class UserControler {
+export default class UserController {
 
 	private errorHandler = asyncErrorHandler;
 	private user;
@@ -24,14 +24,13 @@ export default class UserControler {
 			res.send(err);
 		}
 	}
-	public signInRequest = this.errorHandler( async (req: Request, res:Response) => {
-	 
-		const {body} =  req
+	public signInRequest = this.errorHandler(async (req: Request, res: Response) => {
+
+		const { body } = req
 		console.log(req);
-		
+
 		const user = new UserService();
-		
- 		
+
 		const result = await user.signInRequest(body);
 		if (result.user) {
 			res.status(200);
@@ -40,15 +39,15 @@ export default class UserControler {
 		else {
 			throw new CustomError(result.errors[0].message, result.errors[0].status)
 		}
-	} )
+	})
 
-	public signIn = this.errorHandler(async (req: Request, res: Response) => { 
+	public signIn = this.errorHandler(async (req: Request, res: Response) => {
 		const { body } = req;
 		const user = new UserService();
-		
+
 		const result = await user.signIn(body);
 		console.log(result);
-		
+
 		if (result.jwt) {
 			res.status(202);
 			res.send({
@@ -56,9 +55,9 @@ export default class UserControler {
 				user: result.user,
 			});
 		}
-		else {	
+		else {
 			throw new CustomError(result.errors[0].message, result.errors[0].status)
-		} 
-			
+		}
+
 	});
 }

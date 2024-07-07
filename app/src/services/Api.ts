@@ -1,6 +1,6 @@
 import axios from "axios";
 import dotenv from 'dotenv'
-import { baseURL } from "../helpers/env";
+import { apiURL } from "../helpers/env";
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import auth from "../helpers/auth";
 
@@ -18,7 +18,7 @@ type err =  {
 
 class Api {
 
-	private baseUrl = baseURL;
+	private apiURL = apiURL;
 	private config: AxiosRequestConfig
 
 	contructor () {
@@ -56,7 +56,7 @@ class Api {
 
 	public get({ path, config }: request) {
 		return axios
-			.get(baseURL + path, {
+			.get(apiURL + path, {
 				...config, 
 				headers: {
 					auth: auth.getAuth()
@@ -70,7 +70,7 @@ class Api {
         public post({ path, data, config }: request) {
 			
             return axios
-			.post(baseURL + path, data, {
+			.post(apiURL + path, data, {
 				...config, 
 				headers: {
 					auth: auth.getAuth()

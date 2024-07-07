@@ -1,11 +1,11 @@
 
-import Express ,{ Request, Response } from "express";
+import Express, { Request, Response } from "express";
 import WatchService from "../service/WatchService";
 import VideoRepository from "../repository/videoRepository";
 
-export default class WatchControler {
+export default class WatchController {
 
-    async handle ( req: Request, res: Response ) {
+    async handle(req: Request, res: Response) {
         try {
             const video_id = req.query.video
             console.log(video_id)
@@ -14,9 +14,9 @@ export default class WatchControler {
                 driveBack,
                 new VideoRepository()
             )
-            const videoStream = watchService.startStreaming( video_id )
+            const videoStream = watchService.startStreaming(video_id)
         }
-        catch ( err ) {
+        catch (err) {
             return res.status(500)
         }
     }

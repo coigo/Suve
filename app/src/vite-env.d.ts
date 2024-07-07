@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv  {
-    readonly VITE_REACT_APP_baseURL: String
+    readonly baseURL: String
 }
 
 interface ImportMeta {

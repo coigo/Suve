@@ -1,6 +1,6 @@
 import React from "react";
 import UploadPage from "./pages/upload/uploadPage";
-import WatchPage from './pages/watch/watchPaget' 
+import WatchPage from './pages/watch/watchPage' 
 import MainPage from "./pages/mainPage/mainPage";
 import UserPerfil from "./pages/userPerfil/userPerfil";
 

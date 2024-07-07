@@ -1,1 +1,2 @@
-export const baseURL = import.meta.env.VITE_REACT_APP_baseURL 
+export const apiURL = import.meta.env.apiURL 
+export const baseURL = import.meta.env.baseURL 

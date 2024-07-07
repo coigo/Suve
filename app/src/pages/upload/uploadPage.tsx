@@ -40,17 +40,7 @@ export default function UploadPage() {
     }, [uploadedFile, uploadFile.processUploadVideo])
 
     return (
-        <>
-            <Toaster
-			toastOptions={{
-				classNames: {
-					toast: "bg-vive_items",
-					title: "text-white",
-					description: "text-white",
-				},
-			}}/>
-
-            
+        <>            
             <div className="grid grid-cols-6 grid-rows-5 m-20 mx-40 border-zinc-700 rounded-lg p-8 border-2 gap-4">
                 <div className="col-span-6 flex justify-between">
                     <div className="aspect-square rounded-lg bg-vive_items w-40 "></div>

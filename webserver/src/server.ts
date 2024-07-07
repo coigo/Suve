@@ -3,31 +3,31 @@ import { router } from "./routes";
 import MongoConnect from "./MongoConnect";
 import dotenv from 'dotenv'
 import cors from 'cors'
-import { globalErrorHandler } from "./controler/ErrorControler";
+import { globalErrorHandler } from "./Controller/ErrorController";
 import cookieParser from 'cookie-parser'
 
 dotenv.config()
 
 const app = Express()
-const PORT = process.env.apiPort 
-const mongoPath = process.env.mongoPath 
+const PORT = process.env.apiPort
+const mongoPath = process.env.mongoPath
 const url = process.env.appUrl
 
-const user = process.env.mongoUser 
-const pass = process.env.mongoPass 
+const user = process.env.mongoUser
+const pass = process.env.mongoPass
 
 await MongoConnect(mongoPath, {
     user,
     pass
- })
+})
 
 app.use(
-	cors({
-		credentials: true,
-		origin: ["http://localhost:5173"],
-	}),
+    cors({
+        credentials: true,
+        origin: ["http://localhost:5173"],
+    }),
 );
-app.use(Express.urlencoded({extended: true}))
+app.use(Express.urlencoded({ extended: true }))
 app.use(Express.json())
 app.use('/', router)
 app.use('/', cookieParser())

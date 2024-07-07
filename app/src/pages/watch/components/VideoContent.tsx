@@ -12,9 +12,9 @@ export default function VideoContent ({url, captionTrack}: VideoProps) {
                 src={url}
                 autoPlay
                 controls
+                className=" sm:w-full md:w-2/3 aspect-video rounded-md"
                 
-                width={'1280'}
-                height={'720'}
+
                 {...captionTrack && <track src={captionTrack} kind="captions" label="Portuguese" />}
             >   
             </video>
