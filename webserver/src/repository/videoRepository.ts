@@ -72,21 +72,19 @@ export default class VideoRepository {
         return data
     }
 
-    public async upvote (data: Upvote) {
-        const video = await Video.findById(data.videoId)
-        if ( !video ) {
+    public async upvote(data: Upvote) {
+        const { videoId } = data;
+      
+        const video = await Video.findById(videoId);
+        if (!video) {
             return
         }
-
-        const upvoteAmount = video.upvotes
+      
+        video.upvotes = (video.upvotes || 0) + 1;
         
-        if ( !upvoteAmount ) {
-            await video.updateOne({id: data.videoId}, {upvote: 1})
-            return 
-        }
-
-        await video.updateOne({id: data.videoId}, {upvote: upvoteAmount + 1})
-        return data
-    }
+        await video.save();
+      
+        return data;
+      }
 
 }
