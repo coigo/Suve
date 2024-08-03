@@ -11,20 +11,25 @@ const JWT_SECRET = process.env.JWT_SECRET as string
 export function authenticate(req: AuthRequest, res: Response, next: NextFunction) {
     const { headers: { authorization }  } = req
     
-    if ( authorization ) {
+    if (!authorization) {
+        res.status(401).end()
+    }
+    else {
         const token = authorization.replace(/^Bearer\s+/, "")
 
         jwt.verify(token, JWT_SECRET, (err, decoded) => {
             if (err) {
-                return res.status(401)
+                
+                console.log("deu ruimmmmm");
+                console.log(err);
+                
+                res.status(401).end()            
             }
             req.user = decoded
             next()
         })
 
     }
-    return res.statusCode = 401
-
 
 
 }
