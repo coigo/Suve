@@ -1,14 +1,14 @@
 import axios from "axios";
 import dotenv from 'dotenv'
-import { apiURL } from "../helpers/env";
-import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { apiBaseURL } from "../helpers/env";
+import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import auth from "../helpers/auth";
 
 
-interface request {
+interface IRequest {
     path: string
     data?: any
-    config?: AxiosRequestConfig<string>
+    config?: AxiosRequestConfig<any>
 }
 
 type err =  {
@@ -18,24 +18,33 @@ type err =  {
 
 class Api {
 
-	private apiURL = apiURL;
-	private config: AxiosRequestConfig
+	private config: AxiosRequestConfig;
 
-	contructor () {
+	private api: AxiosInstance
 
-		axios.defaults.withCredentials = true
+	constructor( ) {
+
 		this.config = {
-			auth: auth.getAuth()
-		}
+			baseURL: apiBaseURL,
+			headers: {
+				"Content-Type": "application/json",
+				authorization: `Bearer ${auth.getAuth()}`
+			},
+		};
+
+		
+		this.api = axios.create(this.config)
 	}
+
+
 
 	private handleSuccess({data, status}:  AxiosResponse) {
 
-		console.log(status);
-		
 		if (status === 202) {
 			auth.handleLogin(data)
-			return {auth: true}
+			return {
+				auth: true
+			}
 		}
 		return Promise.resolve(data)
 		
@@ -44,7 +53,6 @@ class Api {
 	private handleReject(err: AxiosError<err, err>) {
 
 		if (err.response?.data) {
-			console.log('foi rejeitado');
 			
 			throw  {
 				message: err.response.data.message,
@@ -54,36 +62,28 @@ class Api {
 		throw { err };
 	}
 
-	public get({ path, config }: request) {
-		return axios
-			.get(apiURL + path, {
-				...config, 
-				headers: {
-					auth: auth.getAuth()
-				}
+	public get({ path, config }: IRequest) {
+		return this.api
+			.get(apiBaseURL + path, {
+				...config
 			})
 			.then(({ status, data }) => Promise.resolve(data))
             .catch(err => this.handleReject(err))
             
         }
         
-        public post({ path, data, config }: request) {
+        public post({ path, data, config }: IRequest) {
+			console.log(apiBaseURL);
 			
-            return axios
-			.post(apiURL + path, data, {
-				...config, 
-				headers: {
-					auth: auth.getAuth()
-				}
+            return this.api
+			.post(apiBaseURL + path, data, {
+				...config
+
 			})
 			.then(data => this.handleSuccess(data))
             .catch(err => this.handleReject(err))
     }
 }
-
-export const api =  axios.create({
-    baseURL: 'http://localhost:3000'
-}) 
 
 export default new Api
  

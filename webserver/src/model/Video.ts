@@ -2,9 +2,12 @@ import mongoose from "mongoose";
 
 const VideoSchema = new mongoose.Schema({
   name:                 String,
-  title:                 String,
+  title:                String,
   size:                 Number,
   id:                   String,
+  upvotes:              Number,
+  weight:               Number,
+  userId:               Number,
   url:                  String
 
 })

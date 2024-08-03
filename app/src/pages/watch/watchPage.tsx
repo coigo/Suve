@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
-import { baseURL } from '../../helpers/env';
+import { apiBaseURL } from '../../helpers/env';
 import { redirectTo } from '../../helpers/util';
 
 import VideoContent from './components/VideoContent';
 import HeaderBar from '../../components/headerBar/headerBar';
 import { VideoCard } from '../../components/videoCard/VideoCard';
+import UpvoteVideo from './components/UpvoteVideo';
 
 
 export default function WatchPage() {
 
     const [ videoUrl, setVideoUrl ] = useState<string>("")
-
+    const [ videoId, setVideoId ] = useState<string >()
     const initialized = useRef<boolean>(false)
     const scrollableDivRef = useRef<HTMLDivElement>(null);
 
@@ -22,10 +23,12 @@ export default function WatchPage() {
             const urlParams = new URLSearchParams(window.location.search)
             const videoId = urlParams.get('video')
             if ( !videoId ) {
-                //redirectTo("/")
+                redirectTo("/")
+            } else {
+                setVideoId(videoId)
+                setVideoUrl(apiBaseURL + "/public/watch?video=" + videoId)
+                initialized.current = true
             }
-            setVideoUrl(baseURL + "/watch?video=" + videoId)
-            initialized.current = true
         }
 
     }, [])
@@ -48,7 +51,7 @@ export default function WatchPage() {
                         <div className='aspect-square h-24 rounded-lg bg-vive_items'> </div>
                     </div>          
                     <div className='flex flex-col gap-2 justify-center mx-4'>
-                        <div className='bg-vive_main rounded-md py-2 w-28 text-center'  > ^ 13772 </div>
+                        { videoId && <UpvoteVideo videoId={videoId}/> }
                         <div className='bg-vive_main rounded-md py-2 w-28 text-center'  > o Comentarios </div>
 
                     </div>

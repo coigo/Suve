@@ -1,4 +1,4 @@
-import multerConfig from "../multer-config";
+import multerConfig from "../infra/middleware/multer-config";
 import multer from "multer";
 import { NextFunction, Request, Response } from "express";
 
@@ -11,6 +11,7 @@ type fileProps = {
     originalname: string
     videoTitle: string
     filename: string
+    upvotes:number
     size: number
 }
 

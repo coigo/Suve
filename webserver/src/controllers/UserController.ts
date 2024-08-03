@@ -1,7 +1,7 @@
 import UserService from "../service/UserService";
 import type { Request, Response } from "express";
 import { asyncErrorHandler } from "./ErrorController";
-import { CustomError } from "../CustomError";
+import { CustomError } from "../infra/shared/CustomError";
 
 export default class UserController {
 

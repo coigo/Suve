@@ -16,9 +16,9 @@ services:
     networks:
       - vive
 
-  userapi:
-    image: "userapi:bun"
-    container_name: userapi
+  authserver:
+    image: "authserver:bun"
+    container_name: authserver
     ports:
       - '3003:3003'
     environment:

@@ -1,10 +1,11 @@
 import Express from "express";
 import { router } from "./routes";
-import MongoConnect from "./MongoConnect";
+import MongoConnect from "../mongoDb/MongoConnect";
 import dotenv from 'dotenv'
 import cors from 'cors'
-import { globalErrorHandler } from "./Controller/ErrorController";
+import { globalErrorHandler } from "../../controllers/ErrorController";
 import cookieParser from 'cookie-parser'
+import { authenticate } from "../middleware/auth";
 
 dotenv.config()
 
@@ -27,10 +28,10 @@ app.use(
         origin: ["http://localhost:5173"],
     }),
 );
-app.use(Express.urlencoded({ extended: true }))
-app.use(Express.json())
-app.use('/', router)
 app.use('/', cookieParser())
+app.use(Express.json())
+app.use('/auth', authenticate)
+app.use('/', router)
 
 
 app.use(globalErrorHandler)

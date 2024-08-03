@@ -7,8 +7,8 @@ export default class WatchController {
 
     async handle(req: Request, res: Response) {
         try {
+            
             const video_id = req.query.video
-            console.log(video_id)
             const driveBack = res
             const watchService = new WatchService(
                 driveBack,

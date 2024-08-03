@@ -1,4 +1,4 @@
-import {api} from "./Api"
+import Api from "./Api"
 import Video from "../pages/upload/Video"
 
 
@@ -20,32 +20,36 @@ export default class UploadFile {
         this.UploadType = UploadType
     }
 
-    public async processUploadVideo({file, video}: uploadProps) {
+    public async processUploadVideo({ file, video }: uploadProps) {
         const data = new FormData()
         data.append('file', file)
-        data.append('videoTitle',  video.getVideoTitle())
+        data.append('videoTitle', video.getVideoTitle())
         
-        try {
-            return api.post('/upload', data)
-        } catch ( err ) {
-            console.log(err)
-            return false
-        }
+        return await Api.post({
+            path: '/auth/upload', 
+            data,
+            config: {
+                headers: {
+                    "Content-Type": "video/mp4",
+                }
+            }
+        })
+
     }
     
 
 
-    public async processUploadImage(uploadedFile: uploadProps) {
-        const data = new FormData()
-        const { file } = uploadedFile
-        console.log(file)
-        data.append('file', file)
-        try {
-            return api.post('/upload/image', data)
-        } catch ( err ) {
-            console.log(err)
-            return false
-        }
+    // public async processUploadImage(uploadedFile: uploadProps) {
+    //     const data = new FormData()
+    //     const { file } = uploadedFile
+    //     console.log(file)
+    //     data.append('file', file)
+    //     try {
+    //         return api.post('/auth/upload/image', data)
+    //     } catch ( err ) {
+    //         console.log(err)
+    //         return false
+    //     }
         
-    }
+    // }
 }

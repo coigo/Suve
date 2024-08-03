@@ -13,25 +13,31 @@ interface handleLogin {
 
 const auth = {
 
-    handleLogin: ({user, jwt}: handleLogin) => {
+    handleLogin: ({ user, jwt }: handleLogin) => {
         try {
-            cookies.set('authToken', jwt, {path:'/', httpOnly: true})
+            cookies.set('authToken', jwt, { path: '/'})
             localStorage.setItem('userToken', JSON.stringify(user))
         }
-        catch( err) {
+        catch (err) {
             console.log(err);
-            
+
             throw new Error('Não foi possivel fazer login')
         }
     },
 
     getAuth: () => {
+        
         const auth = cookies.get('authToken')
+        console.log(auth);
         return auth
     },
 
+    getUser: () => {
+
+    },
+
     isLogged: () => {
-        if ( localStorage.getItem("userToken") ) {
+        if (localStorage.getItem("userToken")) {
             return true
         }
         return false
@@ -39,10 +45,10 @@ const auth = {
 
     logout: () => {
         console.log('deslogado');
-        
+
         localStorage.removeItem('userToken')
         cookies.remove('authToken')
-        
+
     }
 }
 

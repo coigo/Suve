@@ -6,8 +6,9 @@ import VideoRepository from "../repository/videoRepository";
 export default class UploadController {
 
     async handle(req: Request, res: Response) {
+        
         const { file, body: { videoTitle } } = req
-
+        
         if (file) {
             const upload = new UploadService(new VideoRepository())
 
@@ -15,7 +16,8 @@ export default class UploadController {
                 originalname: file.originalname,
                 filename: file.filename,
                 size: file.size,
-                videoTitle
+                videoTitle,
+                upvotes:0, 
             })
             return res.status(200)
         }

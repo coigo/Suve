@@ -1,0 +1,22 @@
+{
+    "apps": [
+        {
+            "name": "app",
+            "autostart": true,
+            "watch": false,
+            "script": "yarn",
+            "args": "run dev",
+            "cwd": "./app",
+            "interpreter": "/bin/bash"
+        },
+        {
+            "name": "webserver",
+            "autostart": true,
+            "watch": true,
+            "script": "yarn",
+            "args": "run dev",
+            "cwd": "./webserver",
+            "interpreter": "/bin/bash"
+        }
+    ]
+}

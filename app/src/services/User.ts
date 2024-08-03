@@ -20,18 +20,18 @@ import Api from "./Api";
 export default {
 
     getData: (userId: string) => {
-        return Api.get({path:`/user/data${userId}`}, )
+        return Api.get({path:`/public/user/data${userId}`}, )
     },
 
     signIn: (data: signInData) => {
-        return Api.post({path: '/signin', data})
+        return Api.post({path: '/public/signin', data})
     },
 
     signInRequest: (data: SignInRequestData) => {
-        return Api.post({path:'/request', data})
+        return Api.post({path:'/public/request', data})
     },
 
     signUp: (data: signUpData) => {
-        return Api.post({path:'/signup', data})
+        return Api.post({path:'/public/signup', data})
     },
 }

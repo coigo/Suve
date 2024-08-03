@@ -23,8 +23,6 @@ type AsyncErrorHandler = (func: AsyncFunction) => (req: Request, res: Response, 
 export const asyncErrorHandler: AsyncErrorHandler = (func) => {
     return (req: Request, res: Response, next: NextFunction) => {
         func(req, res, next).catch(err => {    
-            console.log('deu erro', err);
-                    
             next(err)
         });
     };

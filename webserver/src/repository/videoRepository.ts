@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 import Video from '../model/Video'
+import Comment from '../model/Comment'
+import { randomUUID } from 'crypto'
 
 type fileProps = {
     originalname: string
@@ -8,19 +10,31 @@ type fileProps = {
     size: number
 }
 
+type commentProps = {
+    id?: string
+    videoId: string
+    comment: string
+    userId: number
+    createdAt: Date
+    updatedAt?:Date
+}
+
+type Upvote = {
+    videoId: string
+    userId:number
+}
+
 export default class VideoRepository {
 
     public async writeVideo({ originalname, size, filename, videoTitle }: fileProps) {
         try {
             const post = await Video.create({
-                id: this.removeDotmp4(filename),
                 url: `./videos/${filename}`,
                 name: originalname,
                 size: size,
                 title: videoTitle
             })
             this.find(this.removeDotmp4(filename))
-            console.log(post);
             
             return true
         } catch (err) {
@@ -37,7 +51,7 @@ export default class VideoRepository {
 
     public async find(video_id: string) {
         try {
-            const video = await Video.find({ id: video_id })
+            const video = await Video.find({ _id: video_id })
             if (video[0]) {
                 return video[0].url
             }
@@ -47,5 +61,32 @@ export default class VideoRepository {
         }
     }
 
+    public async addComment (data: commentProps) {
+        const result = await Comment.create({
+            id: randomUUID(),
+            commentc:data.comment,
+            createdAtcre:data.createdAt,
+            userId:data.userId,
+            videoIdv:data.videoId
+        })
+        return data
+    }
+
+    public async upvote (data: Upvote) {
+        const video = await Video.findById(data.videoId)
+        if ( !video ) {
+            return
+        }
+
+        const upvoteAmount = video.upvotes
+        
+        if ( !upvoteAmount ) {
+            await video.updateOne({id: data.videoId}, {upvote: 1})
+            return 
+        }
+
+        await video.updateOne({id: data.videoId}, {upvote: upvoteAmount + 1})
+        return data
+    }
 
 }
