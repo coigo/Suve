@@ -17,7 +17,9 @@ router.get('/public/watch', watch.handle)
 router.post('/public/signin', user.signIn)
 router.post('/public/signup', user.signUp)
 router.post('/public/request', user.signInRequest)
+router.post('/public/video/comment', video.createComment)
+router.get('/public/video/:videoId/comment', video.getComments )
 
 router.post('/auth/upload', multer(multerConfig).single('file'), upload.handle)
-router.post('/auth/upvote', video.upvoteVideo)
+router.post('/auth/video/upvote', video.upvoteVideo)
 

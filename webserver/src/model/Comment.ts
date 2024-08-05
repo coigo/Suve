@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 const CommentSchema = new mongoose.Schema({
-    id: Number,
     comment: String,
     userId: Number,
+    username: String,
     videoId: String,
     createdAt: Date,
     updatedAt:Date

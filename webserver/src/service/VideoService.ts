@@ -4,7 +4,8 @@ type commentProps = {
     videoId: string
     comment: string
     userId: number
-    createdAt: Date
+    username: string
+    createdAt?: Date
     updatedAt?:Date
 }
 
@@ -14,7 +15,9 @@ type Upvote = {
 }
 
 interface IVideoRepository {
-    addComment(comment: commentProps): Promise<commentProps> 
+    createComment(comment: commentProps): Promise<commentProps> 
+
+    getComments(videoId): Promise<commentProps[]>
 
     upvote(data: Upvote): Promise<Upvote | undefined> 
 }
@@ -23,10 +26,14 @@ export class VideoService {
 
     constructor (private repository: IVideoRepository) { }
 
-    async addComment (comment: commentProps) {
-        return this.repository.addComment(comment)
+    async createComment (comment: commentProps) {
+        return this.repository.createComment(comment)
     }
     
+    async getComments ( videoId, page: number = 0 ) {
+        return this.repository.getComments(videoId)
+    }
+
     public async upvote(data:Upvote) {
         return this.repository.upvote(data)
 

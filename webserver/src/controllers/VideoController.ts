@@ -12,6 +12,22 @@ export default class VideoController {
         this.service = new VideoService(new VideoRepository()) 
     }
 
+    public createComment = this.errorHandler(async ({  body: { videoId, comment} } : AuthRequest, res: Response) => {
+        await this.service.createComment({
+            userId: 1,
+            username: 'teste',
+            videoId,
+            comment
+        })
+        res.send({videoId, comment})
+    })
+    
+    public getComments = this.errorHandler(async ({ params: { videoId }, } : AuthRequest, res: Response) => {
+        const comments = await this.service.getComments( String(videoId) )
+        res.send(comments)
+    })
+
+
     public upvoteVideo = this.errorHandler(async ({ user: { id }, body: { videoId }}: AuthRequest, res: Response) => {
         const upvote = await this.service.upvote({
             userId: id,

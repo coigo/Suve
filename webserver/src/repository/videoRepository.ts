@@ -15,6 +15,7 @@ type commentProps = {
     videoId: string
     comment: string
     userId: number
+    username: string
     createdAt: Date
     updatedAt?:Date
 }
@@ -26,7 +27,7 @@ type Upvote = {
 
 export default class VideoRepository {
 
-    public async writeVideo({ originalname, size, filename, videoTitle }: fileProps) {
+    async writeVideo({ originalname, size, filename, videoTitle }: fileProps) {
         try {
             const post = await Video.create({
                 url: `./videos/${filename}`,
@@ -49,7 +50,7 @@ export default class VideoRepository {
     }
 
 
-    public async find(video_id: string) {
+    async find(video_id: string) {
         try {
             const video = await Video.find({ _id: video_id })
             if (video[0]) {
@@ -61,18 +62,22 @@ export default class VideoRepository {
         }
     }
 
-    public async addComment (data: commentProps) {
+    async createComment (data: commentProps) {
         const result = await Comment.create({
-            id: randomUUID(),
-            commentc:data.comment,
-            createdAtcre:data.createdAt,
+            comment:data.comment,
+            createdAt:data.createdAt,
             userId:data.userId,
-            videoIdv:data.videoId
+            videoId:data.videoId
         })
         return data
     }
 
-    public async upvote(data: Upvote) {
+    async getComments ( videoId ) {
+        const comments = await Comment.find({ videoId });
+        return comments as commentProps[]
+    }
+
+    async upvote(data: Upvote) {
         const { videoId } = data;
       
         const video = await Video.findById(videoId);
