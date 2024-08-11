@@ -2,6 +2,7 @@ import UserService from "../service/UserService";
 import type { Request, Response } from "express";
 import { asyncErrorHandler } from "./ErrorController";
 import { CustomError } from "../infra/shared/CustomError";
+import { UserRepository } from "../repository/userRepository";
 
 export default class UserController {
 
@@ -9,29 +10,26 @@ export default class UserController {
 	private user;
 
 	constructor() {
-		this.user = new UserService();
+		this.user = new UserService(new UserRepository());
 	}
 
-	public async signUp(req: Request, res: Response) {
+	public signUp = this.errorHandler(async ({ body }: Request, res: Response) => {
 		try {
-			const { body } = req;
-			const user = new UserService();
-
-			const signUp = await user.signUp(body);
+			console.log('chegou');
+			const signUp = await this.user.signUp(body);
 			return res.send(body).status(200);
 		} catch (err) {
 			res.status(err.statusCode);
 			res.send(err);
 		}
-	}
+	})
 	public signInRequest = this.errorHandler(async (req: Request, res: Response) => {
 
 		const { body } = req
 		console.log(req);
 
-		const user = new UserService();
 
-		const result = await user.signInRequest(body);
+		const result = await this.user.signInRequest(body);
 		if (result.user) {
 			res.status(200);
 			res.end()
@@ -43,9 +41,8 @@ export default class UserController {
 
 	public signIn = this.errorHandler(async (req: Request, res: Response) => {
 		const { body } = req;
-		const user = new UserService();
 
-		const result = await user.signIn(body);
+		const result = await this.user.signIn(body);
 		console.log(result);
 
 		if (result.jwt) {

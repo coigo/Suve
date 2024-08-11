@@ -17,7 +17,6 @@ export default class UploadController {
                 filename: file.filename,
                 size: file.size,
                 videoTitle,
-                upvotes:0, 
             })
             return res.status(200)
         }

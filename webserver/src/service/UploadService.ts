@@ -11,7 +11,7 @@ type fileProps = {
     originalname: string
     videoTitle: string
     filename: string
-    upvotes:number
+    upvotes?:number
     size: number
 }
 

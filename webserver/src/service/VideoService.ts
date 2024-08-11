@@ -35,7 +35,9 @@ export class VideoService {
     }
 
     public async upvote(data:Upvote) {
-        return this.repository.upvote(data)
+        await this.repository.upvote(data)
+
+        
 
     }
 

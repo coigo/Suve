@@ -10,7 +10,7 @@ export const router = Express.Router()
 
 const watch = new WatchController()
 const upload = new UploadController()
-const user = new UserController()
+const user = new UserController() 
 const video = new VideoController()
 
 router.get('/public/watch', watch.handle)
