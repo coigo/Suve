@@ -22,6 +22,7 @@ type commentProps = {
 
 type Upvote = {
     videoId: string
+    upvotes?: number
     userId:number
 }
 
@@ -87,9 +88,14 @@ export default class VideoRepository {
       
         video.upvotes = (video.upvotes || 0) + 1;
         
-        await video.save();
+        const { id, upvotes } = await video.save();
+        return {
+            userId: data.userId,
+            videoId: id, 
+            upvotes
+        } as Upvote
       
-        return data;
+         
       }
 
 }

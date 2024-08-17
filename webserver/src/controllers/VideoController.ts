@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { AuthRequest } from "../infra/shared/AuthRequest";
 import VideoRepository from "../repository/videoRepository";
+import { UserRepository } from "../repository/userRepository";
 import { VideoService } from "../service/VideoService";
 import { asyncErrorHandler } from "./ErrorController";
 
@@ -9,7 +10,7 @@ export default class VideoController {
     private errorHandler = asyncErrorHandler
 
     constructor () {
-        this.service = new VideoService(new VideoRepository()) 
+        this.service = new VideoService(new VideoRepository(), new UserRepository()) 
     }
 
     public createComment = this.errorHandler(async ({  body: { videoId, comment} } : AuthRequest, res: Response) => {

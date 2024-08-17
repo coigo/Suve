@@ -7,7 +7,7 @@ export type UpvoteVideo = {
 export default {
 
     upvoteVideo: async (data: UpvoteVideo) => {
-        return Api.post({path:'/auth/upvote', data})
+        return Api.post({path:'/auth/video/upvote', data})
     } 
     
 }

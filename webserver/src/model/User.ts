@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
   username:             String,
   email:                String,
   upvoteAmmount:        Number,
-
+  upvotedVideos:        [String]
 })
 
 export default mongoose.model('user', UserSchema)
