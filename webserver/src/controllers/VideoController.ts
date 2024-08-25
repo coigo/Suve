@@ -16,15 +16,15 @@ export default class VideoController {
     public createComment = this.errorHandler(async ({  body: { videoId, comment} } : AuthRequest, res: Response) => {
         await this.service.createComment({
             userId: 1,
-            username: 'teste',
+            username: "aaaaaaaaaaa",
             videoId,
             comment
         })
         res.send({videoId, comment})
     })
     
-    public getComments = this.errorHandler(async ({ params: { videoId }, } : AuthRequest, res: Response) => {
-        const comments = await this.service.getComments( String(videoId) )
+    public getComments = this.errorHandler(async ({ params: { videoId }, query: {last}} : AuthRequest, res: Response) => {
+        const comments = await this.service.getComments( String(videoId), Number(last) )
         res.send(comments)
     })
 

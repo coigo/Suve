@@ -73,8 +73,15 @@ export default class VideoRepository {
         return data
     }
 
-    async getComments ( videoId ) {
-        const comments = await Comment.find({ videoId });
+    async getComments ( videoId, last ) {
+        const comments = await Comment.find( { videoId }, {
+            username: true,
+            updatedAt: true,
+            comment: true,
+        }, {
+            skip: last,
+            limit: 10
+        } );
         return comments as commentProps[]
     }
 

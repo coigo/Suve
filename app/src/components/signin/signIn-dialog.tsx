@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import User from "../../services/User";
 import { useState } from "react";
 import { errorHandler } from "../../helpers/handlers";
-import { api } from "../../services/Api2";
 
 export function SignInDialog() {
 	type user = {

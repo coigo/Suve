@@ -1,13 +1,10 @@
 import { useEffect } from 'react'
 import AppRoutes from './routes'
 import { Toaster } from 'sonner'
-import Test from './services/Test'
+
 
 function App() {
 
-  useEffect(( ) => {
-    Test.test()
-  }, [])
   return (
     <>
     <Toaster
