@@ -66,8 +66,9 @@ export default class VideoRepository {
     async createComment (data: commentProps) {
         const result = await Comment.create({
             comment:data.comment,
-            createdAt:data.createdAt,
+            createdAt:new Date(),
             userId:data.userId,
+            username:data.username,
             videoId:data.videoId
         })
         return data
@@ -75,13 +76,16 @@ export default class VideoRepository {
 
     async getComments ( videoId, last ) {
         const comments = await Comment.find( { videoId }, {
+            createdAt: true,
             username: true,
-            updatedAt: true,
+            userId: true,
             comment: true,
-        }, {
+        }, 
+        {
             skip: last,
             limit: 10
-        } );
+        } 
+    );
         return comments as commentProps[]
     }
 
