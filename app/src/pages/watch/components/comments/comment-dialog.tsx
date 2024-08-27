@@ -19,7 +19,7 @@ type Comment = {
 export function CommentDialog({ videoId, commentAmmount }: VideoCommentProps) {
 
     const [open, setOpen] = useState<boolean>(false)
-    const { comments, last, loading, buscar } = useComments()
+    const { comments, last, loading, buscar, lastReached } = useComments()
 
 
     const handleClose = (isOpen: boolean) => {
@@ -31,16 +31,23 @@ export function CommentDialog({ videoId, commentAmmount }: VideoCommentProps) {
     }
     
     const handleBuscarComentarios = () => {
-        buscar({ videoId, last, commentList: comments })
+        buscar({ 
+            last, 
+            videoId, 
+            commentList: comments, 
+            lastWasReached: lastReached 
+        })
 
     }
 
     const onScrollEnd =  (e: React.UIEvent<HTMLDivElement>) => {
 
         const element = e.currentTarget
+
         const isAtBottom = Math.round(element.scrollHeight - element.scrollTop) === Math.round(element.clientHeight) ;
-        
-    if (isAtBottom) {
+        const reachLastComment = comments[-1] === null
+
+    if (isAtBottom && !reachLastComment) {
         handleBuscarComentarios()
     }
         

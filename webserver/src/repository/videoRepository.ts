@@ -86,6 +86,7 @@ export default class VideoRepository {
             limit: 10
         } 
     );
+
         return comments as commentProps[]
     }
 
