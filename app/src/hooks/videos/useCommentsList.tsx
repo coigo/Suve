@@ -10,7 +10,7 @@ interface getCommentProps {
     lastWasReached?: boolean
 }
 
-export const useComments = () => {
+export const useCommentsList = () => {
 
     const [loading, setLoading] = useState<boolean>(false)
     const [comments, setComments] = useState<any[]>([])

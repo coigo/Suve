@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Button } from "../../../../components/ui/Button"
 import * as Dialog from "@radix-ui/react-dialog";
 import { formatDistanceToNow } from 'date-fns'
-import { useComments } from "../../../../hooks/videos/useComments";
+import { useCommentsList } from "../../../../hooks/videos/useCommentsList";
+import { CommentForm } from "./comment-form";
 
 
 interface VideoCommentProps {
@@ -19,7 +20,7 @@ type Comment = {
 export function CommentDialog({ videoId, commentAmmount }: VideoCommentProps) {
 
     const [open, setOpen] = useState<boolean>(false)
-    const { comments, last, loading, buscar, lastReached } = useComments()
+    const { comments, last, loading, buscar, lastReached } = useCommentsList()
 
 
     const handleClose = (isOpen: boolean) => {
@@ -63,7 +64,7 @@ export function CommentDialog({ videoId, commentAmmount }: VideoCommentProps) {
                 <Dialog.Content  onScroll={(e) => onScrollEnd(e) }className="overflow-y-scroll fixed p-5 md:left-1/2 md:top-1/2 inset-0 md:inset-auto md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[520px] md:h-[60vh] w-full bg-vive_items rounded-xl flex flex-col outlite-none overflow-hidden"
 
                 >
-                    <button onClick={handleBuscarComentarios}>buscar</button>
+                    <CommentForm videoId={videoId} afterSubmit={onOpenDialog}/>
 
                     {
                         comments.map((comment: Comment, i: number) => (

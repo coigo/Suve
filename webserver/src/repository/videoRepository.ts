@@ -83,9 +83,10 @@ export default class VideoRepository {
         }, 
         {
             skip: last,
-            limit: 10
-        } 
-    );
+            limit: 10,
+            
+        }
+    ).sort({ createdAt: -1 });
 
         return comments as commentProps[]
     }

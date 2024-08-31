@@ -61,7 +61,7 @@ export class VideoService {
         await this.userRepo.decreaseUpvote(data.userId)
         await this.userRepo.addToUpvotedVideos(data)
         return video
-
+        
     }
 
 }

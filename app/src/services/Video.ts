@@ -12,6 +12,11 @@ interface getCommentsParams {
     videoId: string
 }
 
+export interface CreateComment {
+    comment: string
+    videoId: string
+}
+
 export default {
 
     upvoteVideo: async (data: UpvoteVideo) => {
@@ -20,7 +25,10 @@ export default {
 
     getComments: async ({ videoId, params }: getCommentsParams) => {
         return Api.get({path:`/public/video/${videoId}/comment`, config: { params }})
-    }
+    },
 
+    createComment: async (data: CreateComment) => {
+        return Api.post({path:'/public/video/comment', data})
+    }
 }
 

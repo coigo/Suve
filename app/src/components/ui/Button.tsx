@@ -1,12 +1,13 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-interface buttonProps extends ButtonHTMLAttributes<HTMLInputElement> {
-	children: string;
+interface buttonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+	children: ReactNode;
 	width: "sm" | "md" | "lg" | "full";
 	onClick?: () => unknown;
+	
 }
 
-export function Button({ onClick, children, type, width }: buttonProps) {
+export function Button({ onClick, children, type, width, ...props }: buttonProps) {
 	const buttonSize = {
 		sm: "w-1/3",
 		md: "w-1/2",
@@ -19,8 +20,11 @@ export function Button({ onClick, children, type, width }: buttonProps) {
 			className={`bg-vive_main p-3 rounded-lg  ${buttonSize[width]} placeholder:text-lg`}
 			type={type}
 			onClick={onClick}
+			{...props}
 		>
-			{children}
+			<>
+				{children}
+			</>
 		</button>
 	);
 } 
