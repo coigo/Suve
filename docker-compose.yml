@@ -31,8 +31,17 @@ services:
     depends_on:
       - postgres
     networks:
-      vive:
-        ipv4_address: 172.18.0.5
+      - vive
+
+  minio:
+    image: minio/minio
+    command: server /data
+    ports:
+      - "9000:9000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - vive
 
   mongodb:
     image: mongo:latest

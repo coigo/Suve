@@ -2,25 +2,29 @@ import type { Request, Response } from "express";
 import UploadService from "../service/UploadService";
 import VideoRepository from "../repository/videoRepository";
 
+import { randomUUID } from "node:crypto";
+
 
 export default class UploadController {
 
     async handle(req: Request, res: Response) {
         
         const { file, body: { videoTitle } } = req
-        
-        if (file) {
-            const upload = new UploadService(new VideoRepository())
+        const publicVideoId =  randomUUID()
 
-            const write = upload.writefile({
-                originalname: file.originalname,
-                filename: file.filename,
-                size: file.size,
-                videoTitle,
-            })
-            return res.status(200)
-        }
-        return res.status(400)
+        res.json({ publicVideoId })
+        // if (file) {
+        //     const upload = new UploadService(new VideoRepository())
+
+        //     const write = upload.writefile({
+        //         originalname: file.originalname,
+        //         filename: file.filename,
+        //         size: file.size,
+        //         videoTitle,
+        //     })
+        //     return res.status(200)
+        // }
+        // return res.status(400)
     }
 
 }
