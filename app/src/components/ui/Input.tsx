@@ -6,8 +6,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
     label?: string;
     width: "sm" | "md" | "lg" | "lx2" |"full";
-    border: "all" | "bottom"
-    appendClass: string
+    border: "all" | "bottom"| "none"
+    appendClass?: string
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -22,7 +22,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         const styleBorder = {
             all: "border border-gray-600",
-            bottom: "rounded-none border-b-4 border-gray-600"
+            bottom: "rounded-none border-b-4 border-gray-600",
+            none: ""
         }
 
         return (
