@@ -20,7 +20,7 @@ router.post('/public/request', user.signInRequest)
 router.post('/public/video/comment', video.createComment)
 router.get('/public/video/:videoId/comment', video.getComments )
 
-router.post('/auth/upload', upload.handle)
-// router.post('/auth/upload', multer(multerConfig).single('file'), upload.handle)
+router.post('/auth/upload/:publicId', video.addVideoAttributes)
+router.post('/auth/upload', multer(multerConfig).single('file'), upload.handle)
 router.post('/auth/video/upvote', video.upvoteVideo)
 

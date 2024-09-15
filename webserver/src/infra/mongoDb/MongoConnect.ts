@@ -6,7 +6,7 @@ export default async function MongoConnect (mongoPath, config) {
         if ( mongoPath ) { 
             console.log('>> Connecting to mongoDb');
             
-            await mongoose.connect('mongodb://172.18.0.4:27017/vive')
+            await mongoose.connect('mongodb://localhost:27017/vive')
             console.log('>> Connection established');
         }
         else throw 'Não foi possivel conectar ao MongoDB com o caminho atual'

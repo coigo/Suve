@@ -17,6 +17,10 @@ export interface CreateComment {
     videoId: string
 }
 
+export interface IAddAttributes {
+    title: string
+}
+
 export default {
 
     upvoteVideo: async (data: UpvoteVideo) => {
@@ -29,6 +33,10 @@ export default {
 
     createComment: async (data: CreateComment) => {
         return Api.post({path:'/public/video/comment', data})
+    },
+
+    addAttributes: async (publicId: string, data: IAddAttributes) => {
+        return Api.post({path:`/auth/upload/${publicId}/`, data})
     }
 }
 

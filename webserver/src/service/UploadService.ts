@@ -1,7 +1,3 @@
-import multerConfig from "../infra/middleware/multer-config";
-import multer from "multer";
-import { NextFunction, Request, Response } from "express";
-
 
 interface uploader {
     writeVideo ( props: fileProps ): Promise<boolean> | {}
@@ -11,6 +7,7 @@ type fileProps = {
     originalname: string
     videoTitle: string
     filename: string
+    publicId?: string
     upvotes?:number
     size: number
 }
@@ -33,11 +30,17 @@ export default class UploadService {
     }
 
     private async saveFileInfos( file: fileProps) {
-        const write = await this.repository.writeVideo(file);
-        if ( write ) {
-            return true
-        }   
-        return false
+        const publicId = this.removeDotmp4(file.filename)    
+        await this.repository.writeVideo({
+            publicId,
+            ...file
+        });
+        return publicId
+    }
+
+    private removeDotmp4(filename: string) {
+        const idWithoutMP4 = filename.split('.mp4')
+        return idWithoutMP4[0]
     }
 }
 

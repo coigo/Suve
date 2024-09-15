@@ -21,19 +21,21 @@ export default class UploadFile {
     }
 
     public async processUploadVideo({ file, video }: uploadProps) {
-        const data = new FormData()
-        data.append('file', file)
-        data.append('videoTitle', video.getVideoTitle())
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('videoTitle', video.getVideoTitle())
         
-        return await Api.post({
+        const data  = await Api.post({
             path: '/auth/upload', 
-            data,
+            data: formData,
             config: {
                 headers: {
                     "Content-Type": "video/mp4",
                 }
             }
         })
+        
+        return data
 
     }
     

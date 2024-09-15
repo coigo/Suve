@@ -7,6 +7,7 @@ type fileProps = {
     originalname: string
     videoTitle: string
     filename: string
+    publicId: string
     size: number
 }
 
@@ -28,28 +29,31 @@ type Upvote = {
 
 export default class VideoRepository {
 
-    async writeVideo({ originalname, size, filename, videoTitle }: fileProps) {
+    async writeVideo({ originalname, size, filename, videoTitle, publicId }: fileProps) {
         try {
-            const post = await Video.create({
+            return  Video.create({
                 url: `./videos/${filename}`,
                 name: originalname,
                 size: size,
-                title: videoTitle
+                title: videoTitle,
+                publicId
             })
-            this.find(this.removeDotmp4(filename))
             
-            return true
         } catch (err) {
             console.log(err)
             return false
         }
     }
 
-    private removeDotmp4(filename: string) {
-        const idWithoutMP4 = filename.split('.mp4')
-        return idWithoutMP4[0]
-    }
+    async addVideoAttributes(publicId, att) {
+        const video = await Video.findOne({publicId})
 
+        if (!video) throw new Error('Video invalido')
+
+        Object.assign(video, att)
+        await video.save()
+        return publicId
+    }
 
     async find(video_id: string) {
         try {

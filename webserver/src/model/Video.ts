@@ -4,7 +4,7 @@ const VideoSchema = new mongoose.Schema({
   name:                 String,
   title:                String,
   size:                 Number,
-  id:                   String,
+  publicId:             String,
   upvotes:              Number,
   weight:               Number,
   userId:               Number,

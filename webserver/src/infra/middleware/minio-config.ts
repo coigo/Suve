@@ -1,8 +1,8 @@
 import Minio from 'minio'
 
-const { MINIO_ACCESSKEY, MINIO_SECRETKEY } =  process.env
+const { MINIO_ACCESSKEY, MINIO_SECRETKEY, VIDEO_BUCKET } =  process.env
 
-if ( !MINIO_ACCESSKEY || !MINIO_SECRETKEY) {
+if ( !MINIO_ACCESSKEY || !MINIO_SECRETKEY || !VIDEO_BUCKET) {
     throw new Error("Esta faltando alguma variavel de configuracao do Minio")
 }
 
@@ -14,8 +14,10 @@ export const minioClient = new Minio.Client({
     secretKey: MINIO_SECRETKEY,
   })
 
-const existe4 = await minioClient.bucketExists('videos') 
 
-if (! await minioClient.bucketExists('videos')) {
+if (! await minioClient.bucketExists(VIDEO_BUCKET)) {
     minioClient.makeBucket('videos')
 }
+
+console.log(">> Conectado ao bocket")
+

@@ -13,36 +13,33 @@ import { useForm } from "react-hook-form";
 import { TextField } from "@radix-ui/themes";
 import { Input } from "../../components/ui/Input";
 import { SelectValue } from "../../types";
+import { IAddAttributes } from "../../services/Video";
+import { log } from "console";
+import { useVideoAttributes } from "../../hooks/videos/useVideoAttributes";
 
 const video = new Video()
 
 const playlists = [
-    { id: 1, name: "play 1"},
-    { id: 2, name: "play 2"},
-    { id: 3, name: "play 3"},
-    { id: 4, name: "play 4"},
-    { id: 5, name: "play 5"},
+    { id: 1, name: "play 1" },
+    { id: 2, name: "play 2" },
+    { id: 3, name: "play 3" },
+    { id: 4, name: "play 4" },
+    { id: 5, name: "play 5" },
 ]
 
 export default function UploadPage() {
 
 
     const uploadFile = new UploadFile({ UploadType: 'video' })
-    const [uploadedFile, setUploadedFile] = useState({ file: new File([], ''), readableSize: '', video })
 
     const [videoTitle, setVideoTitle] = useState("")
     const [videoId, setVideoId] = useState<string>()
     const [playlist, setPlaylist] = useState<number>()
+    const  { loading, submit } = useVideoAttributes()
 
+    const { register, control, handleSubmit } = useForm<IAddAttributes>()
 
-    const { register, control } = useForm()
-
-    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setVideoTitle(event.target.value);
-        video.setVideoTitle(event.target.value)
-    };
-
-    const handleUpload = ({ files }: any) => {
+    const handleUpload = async ({ files }: any) => {
 
         const [file] = files
 
@@ -52,17 +49,17 @@ export default function UploadPage() {
             video,
             videoTitle: ''
         }
-        setUploadedFile(uploadedFile)
+
+        const { publicId } = await uploadFile.processUploadVideo(uploadedFile)
+        setVideoId(publicId)
+
     }
 
-    useEffect(() => {
-
-        if (uploadedFile.readableSize) {
-            uploadFile.processUploadVideo(uploadedFile)
-            setVideoId("12w3123123")
+    const onSubmit = (data: IAddAttributes) => {
+        if (videoId) {
+            submit(videoId, data)
         }
-    }, [uploadedFile, uploadFile.processUploadVideo])
-
+    }
 
     const VideoInputTemp = () => {
         return (
@@ -75,33 +72,63 @@ export default function UploadPage() {
     }
     const FormTemp = () => {
         return (
-            <div className="flex w-full h-full md:h-fit md:aspect-video md:w-2/3 flex-col  rounded-xl bg-vive_items">
-                <div className="h-full bg-white bg-opacity-5 w-2/3 p-10">
-                    <form >
-                        
-                        <h2 className="text-lg">Titulo do video </h2>
-                    <InputText
-                        className="md:w-full my-4 bg-vive_items" 
-                        {...register("tittle")}
-            
-                        />
-                    <h2 className="text-lg">Playlist</h2>
-                     <Dropdown 
+            <>
+                <div className="h-full w-full md:aspect-video md:h-fit overflow-hidden md:w-2/3 bg-vive_items rounded-lg">
+                    <form onSubmit={handleSubmit(onSubmit)} className="h-full w-full flex">
+                        <div className="w-full h-full  md:w-2/3 p-12 bg-white bg-opacity-5">
 
-                        value={playlist}
-                        onChange={(e: any) => setPlaylist(e.value)} 
-                        options={playlists} 
-                        optionLabel="name" 
-                        placeholder="Selecione uma playlist" 
-                        className="md:w-full my-4 bg-vive_items" 
-                    />
+                            <h2 className="text-lg">Titulo do video </h2>
+                            <InputText
+                                className="md:w-full my-4 bg-vive_items"
+                                {...register("title")}
 
+                            />
+                            <h2 className="text-lg">Playlist</h2>
+                            {/* <Dropdown
+
+                                value={playlist}
+                                onChange={(e: any) => setPlaylist(e.value)}
+                                options={playlists}
+                                optionLabel="name"
+                                placeholder="Selecione uma playlist"
+                                className="md:w-full my-4 bg-vive_items"
+                            />  */}
+                        </div>
+                                <div className="flex grow justify-between flex-col">
+                                    <div>a</div>
+                                    <div>a</div>
+                                    <button className=" w-full bg-vive_main p-5" type="submit">Finalizar</button>
+                                </div>
                     </form>
                 </div>
-                <div className="w-1/3">
+            </>
+            // <div className="flex w-full h-full md:h-fit md:aspect-video md:w-2/3 rounded-xl bg-vive_items">
+            //     <form className="h-full w-full">
+            //         <div className="h-full bg-white bg-opacity-5 w-2/3 p-10">
 
-                </div>
-            </div>
+            //             <h2 className="text-lg">Titulo do video </h2>
+            //             <InputText
+            //                 className="md:w-full my-4 bg-vive_items"
+            //                 {...register("tittle")}
+
+            //             />
+            //             {/* <h2 className="text-lg">Playlist</h2>
+            //          <Dropdown 
+
+            //             value={playlist}
+            //             onChange={(e: any) => setPlaylist(e.value)} 
+            //             options={playlists} 
+            //             optionLabel="name" 
+            //             placeholder="Selecione uma playlist" 
+            //             className="md:w-full my-4 bg-vive_items" 
+            //         /> */}
+
+            //         </div>
+
+            //     </form>
+
+
+            // </div>
 
         )
     }
@@ -109,7 +136,7 @@ export default function UploadPage() {
     return (
         <div className="flex justify-center items-center h-full">
             {
-                videoId 
+                !videoId
                     ? VideoInputTemp()
                     : FormTemp()
             }
