@@ -115,4 +115,12 @@ export default class VideoRepository {
          
       }
 
+      async getVideosByInterests ( interests: string[] ) {
+        const videos =  
+      }
+
+      async getRandomVideos () {
+
+      }
+
 }

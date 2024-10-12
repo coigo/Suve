@@ -15,7 +15,7 @@ export function VideoInput ({ onUploadVideo }: VideoInputProps) {
     return (
         <div className="card flex justify-content-center">
             <FileUpload 
-                className='rounded-md h-20 md:h-0 p-10 w-full text-center align-middle bg-indigo-400 bg-opacity-75 border-dashed border-white border border-opacity-60'
+                className=''
                 mode="basic" 
                 onSelect={(file) => {onUploadVideo(file)}} 
                 accept="video/mp4"
