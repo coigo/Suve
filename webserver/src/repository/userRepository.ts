@@ -59,4 +59,8 @@ export class UserRepository {
 
     }
 
+    public async getUserInterests ( userId: number ) {
+        const [{interests}] = await User.find( { userId }, { interests: true })
+        return interests
+    } 
 }

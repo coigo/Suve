@@ -8,7 +8,8 @@ const VideoSchema = new mongoose.Schema({
   upvotes:              Number,
   weight:               Number,
   userId:               Number,
-  url:                  String
+  url:                  String,
+  tags:                [String] 
 
 })
 

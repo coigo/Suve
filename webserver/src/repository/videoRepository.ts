@@ -1,14 +1,27 @@
 import mongoose from 'mongoose'
 import Video from '../model/Video'
 import Comment from '../model/Comment'
-import { randomUUID } from 'crypto'
+import { getRandomValues, sortByKey } from '../util/array'
 
 type fileProps = {
     originalname: string
+    name: string,
     videoTitle: string
     filename: string
     publicId: string
     size: number
+}
+
+type Video = {
+    name: string,
+    title: string,
+    size: number,
+    publicId: string,
+    upvotes: number,
+    weight: number,
+    userId: number,
+    url: string,
+    tags: string[]
 }
 
 type commentProps = {
@@ -116,11 +129,13 @@ export default class VideoRepository {
       }
 
       async getVideosByInterests ( interests: string[] ) {
-        const videos =  
+        const videos = await Video.find({ tags: { $in: interests } })
+        return videos as Video[]
       }
 
-      async getRandomVideos () {
-
+      async getTopRatedVideos ( ) {
+        const videos = await Video.find( )
+        return videos as Video[]
       }
 
 }

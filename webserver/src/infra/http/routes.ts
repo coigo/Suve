@@ -24,3 +24,5 @@ router.post('/auth/upload/:publicId', video.addVideoAttributes)
 router.post('/auth/upload', multer(multerConfig).single('file'), upload.handle)
 router.post('/auth/video/upvote', video.upvoteVideo)
 
+router.get('/auth/video/recomendacoes', video.addVideoAttributes)
+router.get('/public/video/recomendacoes', video.getTopRatedVideos)

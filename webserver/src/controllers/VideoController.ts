@@ -40,8 +40,13 @@ export default class VideoController {
         res.send(upvote)
     })
 
-    public getVideos = this.errorHandler(async () => {
-        const videos = await this.service
+    public getVideos = this.errorHandler(async ({ user: { userId } } : AuthRequest, res: Response) => {
+        const videos = await this.service.getVideosByInterests(userId)
     })
+
+    public getTopRatedVideos = this.errorHandler(async () => {
+        const videos = await this.service.getTopRatedVideos()
+    })
+
 
 }

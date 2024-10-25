@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.6",
-    "pm2": "^5.4.2"
+    "pm2": "^5.4.2",
+    "yarn": "^1.22.22"
   },
   "scripts": {
     "start": "pm2 start ./dev.json",
