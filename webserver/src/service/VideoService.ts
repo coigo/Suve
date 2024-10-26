@@ -54,7 +54,8 @@ interface IUserRepository {
     getUpvotedVideos(userId: number): Promise<string[]>
     
     getUserInterests(userId: number): Promise<string[]>
-
+    
+    addUserInterests(userId: number, interests: string[]): Promise<any>
 }
 
 export class VideoService {

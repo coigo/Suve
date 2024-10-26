@@ -1,3 +1,4 @@
+import { error } from "node:console";
 import User from "../model/User";
 
 interface IUser {
@@ -62,5 +63,17 @@ export class UserRepository {
     public async getUserInterests ( userId: number ) {
         const [{interests}] = await User.find( { userId }, { interests: true })
         return interests
+    } 
+
+    public async addUserInterests ( userId:number, interests: string[] ) {
+        const user = await User.findOne({ userId })
+        
+        if ( !user ) {
+            throw new error("Usuário não encontrato")
+        }
+
+        user.interests = interests
+        user.save()
+        return user
     } 
 }

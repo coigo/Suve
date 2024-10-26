@@ -3,6 +3,7 @@ import type { Request, Response } from "express";
 import { asyncErrorHandler } from "./ErrorController";
 import { CustomError } from "../infra/shared/CustomError";
 import { UserRepository } from "../repository/userRepository";
+import { AuthRequest } from "../infra/shared/AuthRequest";
 
 export default class UserController {
 
@@ -57,4 +58,9 @@ export default class UserController {
 		}
 
 	});
+
+	public addUserInterests = this.errorHandler(async ({user: {userId}, body: {interests}}:AuthRequest) => {
+		return this.user.addUserInterests(userId, interests)
+	})
+
 }

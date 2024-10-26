@@ -17,6 +17,9 @@ interface AuthDTO {
 
 interface IUserRepository {
 	createUser: (user: IUser) => Promise<IUser>
+
+    addUserInterests(userId: number, interests: string[]): Promise<any>
+
 }
 
 export default class UserService {
@@ -54,5 +57,9 @@ export default class UserService {
 			console.log(err);
 			throw err
 		}
+	}
+
+	public async  addUserInterests (userId: number, interests: string[]) {
+		return this.userRepository.addUserInterests(userId, interests)
 	}
 }
