@@ -20,6 +20,8 @@ interface IUserRepository {
 
     addUserInterests(userId: number, interests: string[]): Promise<any>
 
+	getUserInterests (userId: number): Promise<string[]>
+
 }
 
 export default class UserService {
@@ -36,7 +38,15 @@ export default class UserService {
 
 	public async signIn(token: string) {
 		const { data: { jwt, errors, user } } = await axios.post(`${this.userBaseURL}/login`, { token });
-		return { jwt, errors, user };
+		const userTags = await this.userRepository.getUserInterests(user.id)
+		return { 
+			jwt, 
+			errors, 
+			user: {
+				...user,
+				isTagged: userTags.length > 0
+			}
+		 };
 	}
 
 	public async signUp(newUser: AuthDTO) {

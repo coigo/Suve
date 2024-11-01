@@ -33,7 +33,9 @@ const auth = {
     },
 
     getUser: () => {
-
+        const user = localStorage.get('userToken')
+        console.log(user)
+        return user
     },
 
     isLogged: () => {

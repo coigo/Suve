@@ -42,11 +42,8 @@ export class UserRepository {
         if ( !user.upvotedVideos ) {
             user.upvotedVideos = []
         }
-
         user.upvotedVideos.push(videoId)
-
         user.save()
-        
         return data
     }
 

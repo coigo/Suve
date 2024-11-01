@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import User from "../../services/User";
 import { useState } from "react";
 import { errorHandler } from "../../helpers/handlers";
+import auth from "../../helpers/auth";
 
 export function SignInDialog() {
 	type user = {
@@ -42,9 +43,7 @@ export function SignInDialog() {
 	
 	async function handleLogin ({passKey}: passKey)  {
 		try {
-			const {auth} = await User.signIn({ passKey, email })
-
-			setOpen(false);
+			await User.signIn({ passKey, email })
 			toast.success("Login realizado com sucesso.");
 		}
 		catch(err) {
