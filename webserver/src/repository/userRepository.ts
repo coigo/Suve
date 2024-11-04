@@ -3,8 +3,8 @@ import User from "../model/User";
 
 interface IUser {
     userId: number
-	username?: string
-	email?: string
+    username?: string
+    email?: string
     upvoteAmmount?: number
 }
 
@@ -12,34 +12,34 @@ interface IUser {
 
 export class UserRepository {
 
-    constructor () { }
+    constructor() { }
 
-    public async createUser ( user: IUser ) {
-        const create = await User.create(user) 
+    public async createUser(user: IUser) {
+        const create = await User.create(user)
         return create as IUser
     }
 
-    public async reduceUpvoteAmount ( userId: number ) {
-        const [ user ] = await User.find({ userId })
+    public async reduceUpvoteAmount(userId: number) {
+        const [user] = await User.find({ userId })
 
     }
 
-    public async decreaseUpvote (userId: number) {
+    public async decreaseUpvote(userId: number) {
         const [user] = await User.find({ userId })
-        
+
         if (user.upvoteAmmount) {
             user.upvoteAmmount--
         }
         user.save()
         return userId
     }
-    
-    public async addToUpvotedVideos ( data: any) {
+
+    public async addToUpvotedVideos(data: any) {
 
         const { userId, videoId } = data
-        const [ user ] = await User.find({ userId })
+        const [user] = await User.find({ userId })
 
-        if ( !user.upvotedVideos ) {
+        if (!user.upvotedVideos) {
             user.upvotedVideos = []
         }
         user.upvotedVideos.push(videoId)
@@ -47,30 +47,31 @@ export class UserRepository {
         return data
     }
 
-    public async getUpvotedVideos (userId: number) {
-        const [ user ] = await User.find({ userId })
+    public async getUpvotedVideos(userId: number) {
+        const [user] = await User.find({ userId })
 
-        if ( !user.upvotedVideos ) {
+        if (!user.upvotedVideos) {
             return []
         }
         return user.upvotedVideos
 
     }
 
-    public async getUserInterests ( userId: number ) {
-        const [{interests}] = await User.find( { userId }, { interests: true })
+    public async getUserInterests(userId: number) {
+        const [{ interests }] = await User.find({ userId }, { interests: true })
         return interests
-    } 
+    }
 
-    public async addUserInterests ( userId:number, interests: string[] ) {
+    public async addUserInterests(userId: number, interests: string[]) {
         const user = await User.findOne({ userId })
-        
-        if ( !user ) {
-            throw new error("Usuário não encontrato")
+        console.log(userId)
+        console.log(user)
+        if (!user) {
+            throw new Error("Usuário não encontrato")
         }
 
         user.interests = interests
         user.save()
         return user
-    } 
+    }
 }

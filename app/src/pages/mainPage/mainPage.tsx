@@ -13,9 +13,8 @@ export default function MainPage () {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [ user, setUser ] = useState<any>(auth.getAuth())
     useEffect(() => {
-
         
-			if (!user.isTagged) {
+			if (!user?.isTagged) {
                 setIsOpen(true);   
 				
 			}
@@ -25,7 +24,7 @@ export default function MainPage () {
         <div className=" p-0">
 			<Tags />
             <HeaderBar />
-            <UserInterestsDialog userId={user.id} isOpen={isOpen} />
+            {user && <UserInterestsDialog userId={user.id} isOpen={isOpen} />}
         </div>
     )
 }

@@ -15,7 +15,9 @@ import Api from "./Api";
         email: string,
 
     }
-
+    type interestsProps = {
+        interests: string[]
+    }
 
 export default {
 
@@ -34,4 +36,7 @@ export default {
     signUp: (data: signUpData) => {
         return Api.post({path:'/public/signup', data})
     },
+    addInterests: (data:interestsProps ) => {
+        return Api.post({path: '/auth/user/interests', data })
+    }
 }

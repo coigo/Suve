@@ -59,8 +59,10 @@ export default class UserController {
 
 	});
 
-	public addUserInterests = this.errorHandler(async ({user: {userId}, body: {interests}}:AuthRequest) => {
-		return this.user.addUserInterests(userId, interests)
+	public addUserInterests = this.errorHandler(async ({ user, body: { interests } }: AuthRequest, res: Response) => {
+		
+		const result = await this.user.addUserInterests(user.id, interests)
+		return res.status(200).end()
 	})
 
 }

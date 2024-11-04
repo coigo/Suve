@@ -28,3 +28,4 @@ router.get('/auth/video/recomendacoes', video.addVideoAttributes)
 router.get('/public/video/recomendacoes', video.getTopRatedVideos)
 
 router.post('/auth/user/interests', user.addUserInterests)
+router.post('/public/user/interests', user.addUserInterests)
