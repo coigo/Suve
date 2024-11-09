@@ -16,6 +16,7 @@ import { SelectValue } from "../../types";
 import { IAddAttributes } from "../../services/Video";
 import { log } from "console";
 import { useVideoAttributes } from "../../hooks/videos/useVideoAttributes";
+import { Chips, ChipsChangeEvent } from "primereact/chips";
 
 const video = new Video()
 
@@ -34,6 +35,8 @@ export default function UploadPage() {
 
     const [videoTitle, setVideoTitle] = useState("")
     const [videoId, setVideoId] = useState<string>()
+    const [tags, setTags] = useState<string[]>([]);
+
     const [playlist, setPlaylist] = useState<number>()
     const  { loading, submit } = useVideoAttributes()
 
@@ -57,7 +60,10 @@ export default function UploadPage() {
 
     const onSubmit = (data: IAddAttributes) => {
         if (videoId) {
-            submit(videoId, data)
+            submit(videoId, {
+                ...data,
+                tags
+            })
         }
     }
 
@@ -93,6 +99,11 @@ export default function UploadPage() {
                                 placeholder="Selecione uma playlist"
                                 className="md:w-full my-4 bg-vive_items"
                             />  */}
+                                <Chips 
+                                    value={tags} 
+                                    onChange={(e: ChipsChangeEvent) => setTags(e.value ?? [])} 
+                                />
+
                         </div>
                                 <div className="flex grow justify-between flex-col">
                                     <div>a</div>

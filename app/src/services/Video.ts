@@ -18,7 +18,8 @@ export interface CreateComment {
 }
 
 export interface IAddAttributes {
-    title: string
+    title: string,
+    tags: string[]
 }
 
 export default {
