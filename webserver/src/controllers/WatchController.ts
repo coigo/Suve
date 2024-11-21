@@ -9,9 +9,9 @@ export default class WatchController {
         try {
             
             const video_id = req.query.video
-            const driveBack = res
+            const stream = res
             const watchService = new WatchService(
-                driveBack,
+                stream,
                 new VideoRepository()
             )
             const videoStream = watchService.startStreaming(video_id)

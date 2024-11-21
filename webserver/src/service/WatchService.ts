@@ -11,18 +11,18 @@ interface videosStreamProps {
     find (video_id: string): Promise<string | null | undefined>
 }
 
-type driveback = Response
+type stream = Response
 
 export default class WatchService {
 
-    constructor ( driveBack: driveback, repository: videosStreamProps ) {
-        console.log(driveBack)
-        this.driveBack =  driveBack
+    constructor ( stream: stream, repository: videosStreamProps ) {
+        console.log(stream)
+        this.stream =  stream
         this.repository = repository
 
     }    
 
-    private driveBack: driveback
+    private stream: stream
     private repository: videosStreamProps
 
 
@@ -34,10 +34,10 @@ export default class WatchService {
             if( videoPath ) {
                 const stream = createReadStream(videoPath)
                 stream.on('data', data => {
-                    this.driveBack.write(data)
+                    this.stream.write(data)
                 })
                 stream.on('end', () => {
-                    this.driveBack.end()
+                    this.stream.end()
                 })
             }
 
