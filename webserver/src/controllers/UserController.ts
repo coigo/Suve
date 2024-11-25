@@ -16,7 +16,6 @@ export default class UserController {
 
 	public signUp = this.errorHandler(async ({ body }: Request, res: Response) => {
 		try {
-			console.log('chegou');
 			const signUp = await this.user.signUp(body);
 			return res.send(body).status(200);
 		} catch (err) {
@@ -27,7 +26,6 @@ export default class UserController {
 	public signInRequest = this.errorHandler(async (req: Request, res: Response) => {
 
 		const { body } = req
-		console.log(req);
 
 
 		const result = await this.user.signInRequest(body);
@@ -44,7 +42,6 @@ export default class UserController {
 		const { body } = req;
 
 		const result = await this.user.signIn(body);
-		console.log(result);
 
 		if (result.jwt) {
 			res.status(202);

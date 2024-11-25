@@ -14,7 +14,7 @@ interface UserInterestsProps {
 export const UserInterestsDialog = ({ isOpen, userId }: UserInterestsProps) => {
 
     const [value, setValue] = useState<string[]>([]);
-    const [ open, setOpen ] = useState(!isOpen)
+    const [ open, setOpen ] = useState(isOpen)
     const onSubmit = async () => {
         try {
             console.log(value)

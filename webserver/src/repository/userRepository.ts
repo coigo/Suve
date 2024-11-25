@@ -58,17 +58,17 @@ export class UserRepository {
     }
 
     public async getUserInterests(userId: number) {
-        const [{ interests }] = await User.find({ userId }, { interests: true })
-        return interests
+        const user = await User.findOne({ userId }, { interests: true })
+        if (!user) throw new Error("Usuário não encontrato")
+        return user.interests
     }
 
     public async addUserInterests(userId: number, interests: string[]) {
         const user = await User.findOne({ userId })
         console.log(userId)
         console.log(user)
-        if (!user) {
-            throw new Error("Usuário não encontrato")
-        }
+        if (!user) throw new Error("Usuário não encontrato")
+
 
         user.interests = interests
         user.save()

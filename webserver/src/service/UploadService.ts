@@ -6,9 +6,10 @@ interface uploader {
 type fileProps = {
     originalname: string
     videoTitle: string
-    filename: string
     publicId?: string
+    filename: string
     upvotes?:number
+    userId: number
     size: number
 }
 

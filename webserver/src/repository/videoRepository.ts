@@ -10,6 +10,7 @@ type fileProps = {
     filename: string
     publicId: string
     size: number
+    userId:number
 }
 
 type Video = {
@@ -42,14 +43,15 @@ type Upvote = {
 
 export default class VideoRepository {
 
-    async writeVideo({ originalname, size, filename, videoTitle, publicId }: fileProps) {
+    async writeVideo({ userId, originalname, size, filename, videoTitle, publicId }: fileProps) {
         try {
             return  Video.create({
                 url: `./videos/${filename}`,
                 name: originalname,
                 size: size,
                 title: videoTitle,
-                publicId
+                publicId,
+                userId
             })
             
         } catch (err) {
@@ -66,11 +68,11 @@ export default class VideoRepository {
         Object.assign(video, att)
         await video.save()
         return publicId
-    }
+    }   
 
-    async find(video_id: string) {
+    async find(publicId: string) {
         try {
-            const video = await Video.find({ _id: video_id })
+            const video = await Video.find({ publicId })
             if (video[0]) {
                 return video[0].url
             }
@@ -125,12 +127,18 @@ export default class VideoRepository {
             upvotes
         } as Upvote
       
-         
       }
 
       async getVideosByInterests ( interests: string[] ) {
-        const videos = await Video.find({ tags: { $in: interests } })
-        return videos as Video[]
+        console.log(["gastronomia", "aventura", "espaço"])
+        console.log(interests)
+        try {
+            const videos = await Video.find({ tags: {$in: ["gastronomia", "aventura", "espaço"]}})
+            return videos as Video[]
+        }
+        catch(err) {
+            console.log(err)
+        }
       }
 
       async getTopRatedVideos ( ) {

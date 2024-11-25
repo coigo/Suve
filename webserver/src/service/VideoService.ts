@@ -96,18 +96,18 @@ export class VideoService {
 
     public async getVideosByInterests (userId: number) {
         const interests = await this.userRepo.getUserInterests(userId)
-
+        
         const videos = await this.repository.getVideosByInterests(interests)
         const orderedVideos = sortByKey("peso", videos).reverse()
-        const  moreRatedVideos = orderedVideos.slice(1, 50)
-        return getRandomValues(moreRatedVideos, 20)
-
+        const  moreRatedVideos = orderedVideos.slice(1, 15)
+        return getRandomValues(moreRatedVideos, 10)
+        
     }
     
     public async getTopRatedVideos () {
         const videos = await this.repository.getTopRatedVideos()
-        const  moreRatedVideos = videos.slice(1, 50)
-        return getRandomValues(moreRatedVideos, 20)
+        const mostRatedVideos = videos.slice(1, 15)
+        return getRandomValues(mostRatedVideos, 10)
 
     }
 

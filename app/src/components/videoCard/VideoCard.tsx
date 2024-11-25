@@ -19,8 +19,8 @@ export function VideoCard ({title, image, videoId}: videoCardProps) {
                 onClick={redirectToWatchPage}
         >
             <div className="inline-block w-56 mx-4 my-2">
-                <div className="aspect-video bg-vive_items rounded-lg md:w-full ">
-                    {/* <img src={image} alt="video card" /> */}
+                <div className="aspect-video bg-vive_items overflow-hidden rounded-lg md:w-full ">
+                     <img src={image} className="object-cover" alt="video card" /> 
                 </div>
                 <p>{title}</p>
             </div>

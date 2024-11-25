@@ -22,16 +22,16 @@ function partition(key: string, array: any[], low: number, high: number): number
 }
 
 export function getRandomValues(array: any[], ammount: number) {
-
-    const used = []
+    const used: number[] = []
     const result: any[] = []
     for (let i = 0; i < ammount; i++) {
-        const random = Math.random() * ammount
+        const random = Math.floor(Math.random() * ammount)
         
-        if (used.find(u => u == random)) {
-            continue
+        if (!used.find(u => u == random)) {
+            result.push(array[random])
+            used.push(random)
         }
-        result.push(array[i])
     }
+    console.log(used)
     return result
 }

@@ -39,6 +39,7 @@ export default class UserService {
 	public async signIn(token: string) {
 		const { data: { jwt, errors, user } } = await axios.post(`${this.userBaseURL}/login`, { token });
 		const userTags = await this.userRepository.getUserInterests(user.id)
+		console.log(userTags)
 		return { 
 			jwt, 
 			errors, 

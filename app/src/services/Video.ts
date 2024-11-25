@@ -1,5 +1,6 @@
 import path from "path"
 import Api  from "./Api"
+import auth from "../helpers/auth"
 
 export type UpvoteVideo = {
     videoId: string,
@@ -23,6 +24,13 @@ export interface IAddAttributes {
 }
 
 export default {
+
+    getVideos: async () => {
+        if (auth.isLogged()) {
+            return Api.get({path:`/auth/video/recomendacoes`})
+        }
+        return Api.get({path:`/public/video/recomendacoes`})
+    },
 
     upvoteVideo: async (data: UpvoteVideo) => {
         return Api.post({path:'/auth/video/upvote', data})
