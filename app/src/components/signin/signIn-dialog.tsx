@@ -16,10 +16,8 @@ export function SignInDialog() {
 		passKey: string;
 	};
 
-	const { register: registerEmail, handleSubmit: handleSubmitEmail } =
-		useForm<user>();
-	const { register: registerPassKey, handleSubmit: handleSubmitPassKey } =
-		useForm<passKey>();
+	const { register: registerEmail, handleSubmit: handleSubmitEmail } = useForm<user>();
+	const { register: registerPassKey, handleSubmit: handleSubmitPassKey } = useForm<passKey>();
 
 	const [page, setPage] = useState(0);
 	const [email, setEmail] = useState<string>("");
@@ -40,18 +38,19 @@ export function SignInDialog() {
 			toast.error("Algo deu errado.");
 		}
 	}
-	
-	async function handleLogin ({passKey}: passKey)  {
+
+	async function handleLogin({ passKey }: passKey) {
 		try {
 			await User.signIn({ passKey, email })
 			toast.success("Login realizado com sucesso.");
+			location.reload()
 		}
-		catch(err) {
+		catch (err) {
 			errorHandler(err)
 		}
-		
+
 	}
-	
+
 	return (
 		<Dialog.Root open={open} onOpenChange={handleClose}>
 			<Dialog.Trigger>
