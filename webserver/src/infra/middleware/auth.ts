@@ -19,10 +19,6 @@ export function authenticate(req: AuthRequest, res: Response, next: NextFunction
 
         jwt.verify(token, JWT_SECRET, (err, decoded) => {
             if (err) {
-                
-                console.log("deu ruimmmmm");
-                console.log(err);
-                
                 res.status(401).end()            
             }
             req.user = decoded

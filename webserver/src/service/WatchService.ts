@@ -16,7 +16,6 @@ type stream = Response
 export default class WatchService {
 
     constructor ( stream: stream, repository: videosStreamProps ) {
-        console.log(stream)
         this.stream =  stream
         this.repository = repository
 
@@ -29,7 +28,6 @@ export default class WatchService {
     public async startStreaming ( video_id ) {
         
         try {
-            console.log(this.repository)
             const videoPath = await this.repository.find(video_id)
             if( videoPath ) {
                 const stream = createReadStream(videoPath)

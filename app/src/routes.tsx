@@ -7,6 +7,7 @@ import UserPerfil from "./pages/userPerfil/userPerfil";
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { SignUpDialog } from "./components/signup/signUp-page";
 import { SignInDialog } from "./components/signin/signIn-dialog";
+import SearchPage from "./pages/search";
 
 export default function AppRoutes () {
     return (
@@ -20,6 +21,7 @@ export default function AppRoutes () {
                 <Route path="/signup" element={<SignUpDialog/>} />
                 <Route path="/signup" element={<SignUpDialog/>} />
                 <Route path="/perfil/:userId" element={<UserPerfil/>} />
+                <Route path="/search" element={<SearchPage/>} />
             </Routes>
         </BrowserRouter>
 
