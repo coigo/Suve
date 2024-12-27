@@ -130,14 +130,27 @@ export default class VideoRepository {
       }
 
       async getVideosByInterests ( interests: string[] ) {
-        console.log(["gastronomia", "aventura", "espaço"])
-        console.log(interests)
         try {
-            const videos = await Video.find({ tags: {$in: ["gastronomia", "aventura", "espaço"]}})
+            const videos = await Video.find({ tags: {$in: interests}})
             return videos as Video[]
         }
         catch(err) {
-            console.log(err)
+            throw new Error('Não foi possivel buscar pelos videos')
+        }
+    }
+      
+      async getVideosBySearch ( search: string ) {
+        try {
+            const videos = await Video.find({
+                $or: [
+                  { title: { $regex: search, $options: 'i' } },
+                  { tags: { $in: [search] } }
+                ]
+              }).exec();
+              return videos;
+            }
+            catch(err) {
+            throw new Error('Não foi possivel buscar pelos videos')
         }
       }
 

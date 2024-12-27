@@ -8,19 +8,19 @@ export const useGetVideos = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [videos, setVideos] = useState<any[]>([])
 
-    const buscar = async () => {
+    const buscar = async (search: string) => {
 
-            try {
-                const videos = await Video.getVideos()
-                
-                setLoading(false)
-                setVideos(videos)
-            } catch (err) {
-                toast.error('Nao foi possivel encontrar os comentarios')
-            }
+        try {
+            const videos = await Video.getSearchVideo({ search })
+
+            setLoading(false)
+            setVideos(videos)
+        } catch (err) {
+            toast.error('Nao foi possivel encontrar os comentarios')
+        }
     }
-    return { 
-        loading, 
+    return {
+        loading,
         buscar,
         videos
     }

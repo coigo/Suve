@@ -26,6 +26,7 @@ router.post('/auth/video/upvote', video.upvoteVideo)
 
 router.get('/auth/video/recomendacoes', video.getVideos)
 router.get('/public/video/recomendacoes', video.getTopRatedVideos)
+router.get('/public/video/search', video.getVideosBySearch)
 
 router.post('/auth/user/interests', user.addUserInterests)
 router.post('/public/user/interests', user.addUserInterests)

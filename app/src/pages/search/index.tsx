@@ -12,14 +12,13 @@ export default function SearchPage() {
 
             const urlParams = new URLSearchParams(window.location.search)
             const searchParam = urlParams.get('s')
-
+            
             if (!searchParam) {
                 redirectTo("/")
             } else {
                 setSearch(searchParam)
                 initialized.current = true
             }
-            console.log(1)
         }
     }, [])
 

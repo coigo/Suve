@@ -23,6 +23,10 @@ export interface IAddAttributes {
     tags: string[]
 }
 
+interface SearchQuery {
+    search: string
+}
+
 export default {
 
     getVideos: async () => {
@@ -30,6 +34,10 @@ export default {
             return Api.get({path:`/auth/video/recomendacoes`})
         }
         return Api.get({path:`/public/video/recomendacoes`})
+    },
+
+    getSearchVideo: async (params: SearchQuery) => {
+        return Api.post({path:'/auth/video/search', config: {params}})
     },
 
     upvoteVideo: async (data: UpvoteVideo) => {

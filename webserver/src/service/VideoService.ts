@@ -43,6 +43,8 @@ interface IVideoRepository {
 
     getVideosByInterests(interests: string[]): Promise<Video[]>
 
+    getVideosBySearch(search: string) : Promise<Video[]>
+    
     getTopRatedVideos(): Promise<Video[]>
 }
 
@@ -56,6 +58,7 @@ interface IUserRepository {
     getUserInterests(userId: number): Promise<string[]>
     
     addUserInterests(userId: number, interests: string[]): Promise<any>
+
 }
 
 export class VideoService {
@@ -110,5 +113,9 @@ export class VideoService {
         return getRandomValues(mostRatedVideos, 10)
 
     }
+
+    public async getVideosBySearch(search: string) {
+        return this.repository.getVideosBySearch(search)
+    } 
 
 }
