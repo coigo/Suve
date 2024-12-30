@@ -2,16 +2,17 @@
 
 import { useState } from "react"
 import { Video } from "../../types"
+import videoService from "../../services/Video"
 
 export const useSearhVideos = () => {
     
     const [ videos, setVideos ] = useState<Video[]>([])
     const [ loading, setLoading ] = useState<boolean>(false)
 
-    const buscar = () => {
+    const buscar = async (search: string) => {
         setLoading(true)
         try {
-            const videos = []
+            const videos = await videoService.getSearchVideo({ search })
             setVideos(videos)
             setLoading(false)
         } catch (err) {

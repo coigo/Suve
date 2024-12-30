@@ -37,7 +37,7 @@ export default {
     },
 
     getSearchVideo: async (params: SearchQuery) => {
-        return Api.post({path:'/auth/video/search', config: {params}})
+        return Api.get({path:'/public/video/search', config: {params}})
     },
 
     upvoteVideo: async (data: UpvoteVideo) => {

@@ -50,8 +50,9 @@ export default class VideoController {
         return res.send(videos)
     })
 
-    public getVideosBySearch = this.errorHandler(async ({ params: { videoId }last}} : AuthRequest, res: Response) => {
-        const videos = await this.service.getVideosBySearch()
+    public getVideosBySearch = this.errorHandler(async ({ query: { search }} : AuthRequest, res: Response) => {
+        console.log(search)
+        const videos = await this.service.getVideosBySearch(search as string)
         return res.send(videos)
     })
 

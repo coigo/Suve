@@ -108,7 +108,9 @@ export class VideoService {
     }
     
     public async getTopRatedVideos () {
+        console.log('a')
         const videos = await this.repository.getTopRatedVideos()
+        console.log(videos)
         const mostRatedVideos = videos.slice(1, 15)
         return getRandomValues(mostRatedVideos, 10)
 

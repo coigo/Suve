@@ -8,10 +8,10 @@ export const useGetVideos = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [videos, setVideos] = useState<any[]>([])
 
-    const buscar = async (search: string) => {
+    const buscar = async () => {
 
         try {
-            const videos = await Video.getSearchVideo({ search })
+            const videos = await Video.getVideos()
 
             setLoading(false)
             setVideos(videos)
