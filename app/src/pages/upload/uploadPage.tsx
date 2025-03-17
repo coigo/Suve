@@ -17,16 +17,9 @@ import { IAddAttributes } from "../../services/Video";
 import { log } from "console";
 import { useVideoAttributes } from "../../hooks/videos/useVideoAttributes";
 import { Chips, ChipsChangeEvent } from "primereact/chips";
+import { FileUpload } from "primereact/fileupload";
 
 const video = new Video()
-
-const playlists = [
-    { id: 1, name: "play 1" },
-    { id: 2, name: "play 2" },
-    { id: 3, name: "play 3" },
-    { id: 4, name: "play 4" },
-    { id: 5, name: "play 5" },
-]
 
 export default function UploadPage() {
 
@@ -36,9 +29,8 @@ export default function UploadPage() {
     const [videoTitle, setVideoTitle] = useState("")
     const [videoId, setVideoId] = useState<string>()
     const [tags, setTags] = useState<string[]>([]);
-
-    const [playlist, setPlaylist] = useState<number>()
-    const  { loading, submit } = useVideoAttributes()
+    const [ image, setImage ] = useState<File>()
+    const { loading, submit } = useVideoAttributes()
 
     const { register, control, handleSubmit } = useForm<IAddAttributes>()
 
@@ -62,6 +54,7 @@ export default function UploadPage() {
         if (videoId) {
             submit(videoId, {
                 ...data,
+                file: image,
                 tags
             })
         }
@@ -76,6 +69,11 @@ export default function UploadPage() {
 
         )
     }
+
+    const onSelectImage = ({files}: any) => {
+        setImage(files[0])
+    }
+
     const FormTemp = () => {
         return (
             <>
@@ -90,26 +88,26 @@ export default function UploadPage() {
 
                             />
                             <h2 className="text-lg">Playlist</h2>
-                            {/* <Dropdown
-
-                                value={playlist}
-                                onChange={(e: any) => setPlaylist(e.value)}
-                                options={playlists}
-                                optionLabel="name"
-                                placeholder="Selecione uma playlist"
-                                className="md:w-full my-4 bg-vive_items"
-                            />  */}
-                                <Chips 
-                                    value={tags} 
-                                    onChange={(e: ChipsChangeEvent) => setTags(e.value ?? [])} 
-                                />
+                            <Chips
+                                value={tags}
+                                onChange={(e: ChipsChangeEvent) => setTags(e.value ?? [])}
+                            />
+                            <FileUpload
+                                mode="basic"
+                                name="image"
+                                url="/api/upload"
+                                chooseLabel="Selecione a Imagem"
+                                accept="image/png"
+                                maxFileSize={1000000}
+                                onSelect={onSelectImage}
+                            />
 
                         </div>
-                                <div className="flex grow justify-between flex-col">
-                                    <div>a</div>
-                                    <div>a</div>
-                                    <button className=" w-full bg-vive_main p-5" type="submit">Finalizar</button>
-                                </div>
+                        <div className="flex grow justify-between flex-col">
+                            <div>a</div>
+                            <div>a</div>
+                            <button className=" w-full bg-vive_main p-5" type="submit">Finalizar</button>
+                        </div>
                     </form>
                 </div>
             </>

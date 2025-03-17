@@ -10,7 +10,7 @@ export default function VideoContent ({url, captionTrack}: VideoProps) {
         <>
             <video 
                 src={url}
-                //autoPlay
+                autoPlay
                 controls
                 className=" sm:w-full md:w-2/3 aspect-video rounded-md"
                 

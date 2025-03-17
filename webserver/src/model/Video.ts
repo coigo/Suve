@@ -9,6 +9,7 @@ const VideoSchema = new mongoose.Schema({
   weight:               Number,
   userId:               Number,
   url:                  String,
+  imagemName:           String,
   tags:                [String] 
 
 })

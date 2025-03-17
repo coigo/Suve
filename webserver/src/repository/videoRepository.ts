@@ -22,6 +22,7 @@ type Video = {
     weight: number,
     userId: number,
     url: string,
+    imagemName: string,
     tags: string[]
 }
 
@@ -113,7 +114,7 @@ export default class VideoRepository {
     async upvote(data: Upvote) {
         const { videoId } = data;
       
-        const video = await Video.findById(videoId);
+        const video = await Video.findOne({publicId: videoId});
         if (!video) {
             return
         }
@@ -132,6 +133,7 @@ export default class VideoRepository {
       async getVideosByInterests ( interests: string[] ) {
         try {
             const videos = await Video.find({ tags: {$in: interests}})
+            console.log(videos)
             return videos as Video[]
         }
         catch(err) {
@@ -140,7 +142,6 @@ export default class VideoRepository {
     }
       
       async getVideosBySearch ( search: string ) {
-        console.log(search)
         try {
             console.log('a')
             const videos = await Video.find({
@@ -160,7 +161,6 @@ export default class VideoRepository {
 
       async getTopRatedVideos ( ) {
         const videos = await Video.find( )
-        console.log(videos)
         return videos as Video[]
       }
 

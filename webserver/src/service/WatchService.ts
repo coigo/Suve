@@ -41,7 +41,6 @@ export default class WatchService {
 
         }
         catch (err) {
-            console.log('deu ruim')
             throw err
   
         }

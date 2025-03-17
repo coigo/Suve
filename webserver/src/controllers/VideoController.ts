@@ -56,5 +56,9 @@ export default class VideoController {
         return res.send(videos)
     })
 
+    public getVideoImage = this.errorHandler(async ({ params: { image } }: Request, res: Response) => {
+        return res.sendFile(`${image}.png`, {root: "./videoImages"})
+    })
+
 
 }

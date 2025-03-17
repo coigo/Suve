@@ -29,6 +29,7 @@ type Video = {
     weight: number,
     userId: number,
     url: string,
+    imagemName: string,
     tags: string[]
 }
 
@@ -101,8 +102,10 @@ export class VideoService {
         const interests = await this.userRepo.getUserInterests(userId)
         
         const videos = await this.repository.getVideosByInterests(interests)
+        return videos
         const orderedVideos = sortByKey("peso", videos).reverse()
         const  moreRatedVideos = orderedVideos.slice(1, 15)
+        console.log(moreRatedVideos)
         return getRandomValues(moreRatedVideos, 10)
         
     }
@@ -118,6 +121,7 @@ export class VideoService {
 
     public async getVideosBySearch(search: string) {
         return this.repository.getVideosBySearch(search)
-    } 
+    }
+
 
 }

@@ -3,6 +3,7 @@ import WatchController from "../../controllers/WatchController";
 import UploadController from '../../controllers/UploadController'
 import multer from 'multer'
 import multerConfig from "../middleware/multer-config";
+import imageConfig from "../middleware/image-config";
 import UserController from "../../controllers/UserController";
 import VideoController from "../../controllers/VideoController";
 
@@ -20,9 +21,10 @@ router.post('/public/request', user.signInRequest)
 router.post('/public/video/comment', video.createComment)
 router.get('/public/video/:videoId/comment', video.getComments)
 
-router.post('/auth/upload/:publicId', video.addVideoAttributes)
+router.post('/auth/upload/:publicId', multer(imageConfig).single('file'),video.addVideoAttributes)
 router.post('/auth/upload', multer(multerConfig).single('file'), upload.handle)
 router.post('/auth/video/upvote', video.upvoteVideo)
+router.get('/public/videoImage/:image', video.getVideoImage)
 
 router.get('/auth/video/recomendacoes', video.getVideos)
 router.get('/public/video/recomendacoes', video.getTopRatedVideos)

@@ -7,8 +7,7 @@ import { UserInterestsDialog } from "../../components/interestsDialog";
 import { useGetVideos } from "../../hooks/videos/useGetVideos";
 import { VideoCard } from "../../components/videoCard/VideoCard";
 import { useMountEffect } from 'primereact/hooks';
-
-
+import { apiBaseURL } from "../../helpers/env";
 
 
 export default function MainPage () {
@@ -25,7 +24,7 @@ export default function MainPage () {
     
 
     return (
-        <div className=" p-0">
+        <div className="p-0">
             
 			<Tags />
             <div className="flex gap-3 flex-wrap ml-8">
@@ -33,7 +32,10 @@ export default function MainPage () {
             {
                 videos.map(video => {
                     return (
-                        <VideoCard image="https://random.imagecdn.app/224/126" title={video.title} videoId={video.publicId}/>
+                        <VideoCard image={video?.imageName && apiBaseURL+ "/public/videoImage/" + video.imageName }
+                            title={video?.title} 
+                            videoId={video?.publicId}
+                            />
                     )
                 })
             }
