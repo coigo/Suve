@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import Video from '../model/Video'
 import Comment from '../model/Comment'
 import { getRandomValues, sortByKey } from '../util/array'
+import { minioClient } from '../infra/minio/micioClient'
 
 type fileProps = {
     originalname: string
@@ -42,26 +43,23 @@ type Upvote = {
     userId:number
 }
 
+
 export default class VideoRepository {
 
-    async writeVideo({ userId, originalname, size, filename, videoTitle, publicId }: fileProps) {
+    async writeVideo(publicId: string, stream: Buffer) {
         try {
-            return  Video.create({
-                url: `./videos/${filename}`,
-                name: originalname,
-                size: size,
-                title: videoTitle,
-                publicId,
-                userId
+            await minioClient.putObject('suve', publicId, stream )
+            await Video.create({
+                publicId
             })
-            
         } catch (err) {
             console.log(err)
-            return false
+            throw err
         }
     }
 
-    async addVideoAttributes(publicId, att) {
+    async addVideoAttributes(publicId: string, att: any) {
+        console.log('oio')
         const video = await Video.findOne({publicId})
 
         if (!video) throw new Error('Video invalido')
@@ -94,7 +92,7 @@ export default class VideoRepository {
         return data
     }
 
-    async getComments ( videoId, last ) {
+    async getComments ( videoId: string, last: number ) {
         const comments = await Comment.find( { videoId }, {
             createdAt: true,
             username: true,
@@ -132,7 +130,7 @@ export default class VideoRepository {
 
       async getVideosByInterests ( interests: string[] ) {
         try {
-            const videos = await Video.find({ tags: {$in: interests}})
+            const videos = await Video.find()
             console.log(videos)
             return videos as Video[]
         }

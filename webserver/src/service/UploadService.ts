@@ -1,6 +1,7 @@
+import { randomUUID } from "crypto"
 
 interface uploader {
-    writeVideo ( props: fileProps ): Promise<boolean> | {}
+    writeVideo(publicId: string, stream: Buffer): Promise<void>
 }
 
 type fileProps = {
@@ -8,7 +9,7 @@ type fileProps = {
     videoTitle: string
     publicId?: string
     filename: string
-    upvotes?:number
+    upvotes?: number
     userId: number
     size: number
 }
@@ -16,32 +17,22 @@ type fileProps = {
 export default class UploadService {
 
     private repository: uploader
-    
-    constructor ( repository : uploader ) {
+
+    constructor(repository: uploader) {
         this.repository = repository
     }
-    
-    async writefile (  props: fileProps ) {
+
+    async writefile(stream: Buffer) {
         try {
-            return await this.saveFileInfos(props)
-        } catch ( err ) {
+            const publicId = randomUUID()
+
+            await this.repository.writeVideo(publicId, stream);
+            return publicId
+        } catch (err) {
             console.log(err)
             throw err
         }
     }
 
-    private async saveFileInfos( file: fileProps) {
-        const publicId = this.removeDotmp4(file.filename)    
-        await this.repository.writeVideo({
-            publicId,
-            ...file
-        });
-        return publicId
-    }
-
-    private removeDotmp4(filename: string) {
-        const idWithoutMP4 = filename.split('.mp4')
-        return idWithoutMP4[0]
-    }
 }
 

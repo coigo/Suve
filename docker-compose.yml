@@ -13,8 +13,7 @@ services:
       - POSTGRES_DB=SUVE
     volumes:
       - postgres:/docker-entrypoint-initdb.d/postgresql
-    networks:
-      - vive
+
 
   authserver:
     image: "authserver:bun"
@@ -30,8 +29,7 @@ services:
       - DB_URL=postgresql://postgres:postgres@postgres:5432/SUVE
     depends_on:
       - postgres
-    networks:
-      - vive
+
 
   mongodb:
     image: mongo:latest
@@ -46,24 +44,19 @@ services:
       ME_CONFIG_MONGODB_PORT: 27017
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: klr268
-    networks:
-      - vive
 
   minio:
-    image: quay.io/minio/minio:latest
+    image: minio/minio:latest
     container_name: minio
-    command: server --console-address ":9090" /mnt/data
-    environment:
-      MINIO_ROOT_USER: vive_dev
-      MINIO_ROOT_PASSWORD: vive_dev 
-      MINIO_VOLUMES: /mnt/data 
     ports:
-      - "9000:9000"
-      - "9090:9090"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    networks:
-      - vive
+      - "9000:9000" 
+      - "9001:9001"   
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: admin123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
 
   redis:
     image: redis:latest
@@ -73,14 +66,8 @@ services:
       - '6379:6379'
     volumes:
       - 'redis:/docker-entrypoint-initdb.d/redis'
-    networks:
-      - vive
 
-networks:
-  vive:
-    driver: bridge
-    external: true
-    
+
 
 volumes:
   mongodb:
@@ -88,4 +75,6 @@ volumes:
   postgres:
     driver: local
   redis:
+    driver: local
+  minio_data:
     driver: local

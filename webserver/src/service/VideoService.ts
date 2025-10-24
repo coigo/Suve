@@ -36,7 +36,7 @@ type Video = {
 interface IVideoRepository {
     createComment(comment: commentProps): Promise<commentProps>
 
-    getComments(videoId, last): Promise<commentProps[]>
+    getComments(videoId: string, last: number): Promise<commentProps[]>
 
     addVideoAttributes(publicId: string, att: VideoAttributes): Promise<Upvote | undefined>
 
@@ -73,7 +73,7 @@ export class VideoService {
         return this.repository.createComment(comment)
     }
 
-    async getComments(videoId, last: number = 0) {
+    async getComments(videoId: string, last: number = 0) {
         return this.repository.getComments(videoId, last)
     }
 
@@ -95,6 +95,7 @@ export class VideoService {
     }
 
     public async addVideoAttributes(publicId: string, att: VideoAttributes) {
+        
         return this.repository.addVideoAttributes(publicId, att)
     }
 

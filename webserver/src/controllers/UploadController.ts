@@ -8,19 +8,11 @@ export default class UploadController {
 
     async handle(req: AuthRequest, res: Response) {
         
-        const { file, body: { videoTitle }, user: { id } } = req
-        
+        const { file } = req
         if (file) {
             const upload = new UploadService(new VideoRepository())
 
-            const video = await upload.writefile({
-                originalname: file.originalname,
-                filename: file.filename,
-                size: file.size,
-                videoTitle,
-                userId: id,
-                upvotes: 0, 
-            })
+            const video = await upload.writefile(file.buffer)
             return res.json({ publicId: video }).end()
         }
         return res.status(400)

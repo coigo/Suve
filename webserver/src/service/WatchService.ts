@@ -1,6 +1,7 @@
 
 import { createReadStream } from 'node:fs'
 import type { Response } from 'express'
+import { minioClient } from '../infra/minio/micioClient'
 
 
 type props = {
@@ -25,19 +26,12 @@ export default class WatchService {
     private repository: videosStreamProps
 
 
-    public async startStreaming ( video_id ) {
+    public async startStreaming ( video_id: string ) {
         
         try {
-            const videoPath = await this.repository.find(video_id)
-            if( videoPath ) {
-                const stream = createReadStream(videoPath)
-                stream.on('data', data => {
-                    this.stream.write(data)
-                })
-                stream.on('end', () => {
-                    this.stream.end()
-                })
-            }
+            const video = await minioClient.getObject('suve', video_id )
+console.log(typeof video.pipe) //vem funcion
+            return video;
 
         }
         catch (err) {
