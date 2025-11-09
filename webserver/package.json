@@ -6,12 +6,16 @@
   "main": "server.js",
   "scripts": {
     "dev": "tsx watch src/infra/http/server.ts",
-    "test": "tsx watch src/test2.ts"
+    "test": "tsx watch src/test2.ts",
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/bull": "^4.10.0",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/minio": "^7.1.1",
     "axios": "^1.6.8",
     "bull": "^4.16.2",
@@ -24,6 +28,8 @@
     "minio": "^8.0.6",
     "mongoose": "^8.0.3",
     "multer": "^1.4.5-lts.1",
+    "tsc": "^2.0.4",
+    "typescript": "^5.9.3",
     "uuid": "^10.0.0"
   },
   "devDependencies": {

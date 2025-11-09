@@ -7,15 +7,22 @@ import { AuthRequest } from "../infra/shared/AuthRequest";
 export default class UploadController {
 
     async handle(req: AuthRequest, res: Response) {
-        
+        return res.json({publicId:"123"})
         const { file } = req
-        if (file) {
-            const upload = new UploadService(new VideoRepository())
-
-            const video = await upload.writefile(file.buffer)
-            return res.json({ publicId: video }).end()
+        try {
+            if (file) {
+                const upload = new UploadService(new VideoRepository())
+    
+                const video = await upload.writefile(file.buffer)
+                console.log(video)
+                return res.json({ publicId: video })
+            }
+            
         }
-        return res.status(400)
+        catch(err: any) {
+            console.log(err)
+            return res.status(400)
+        }
     }
 
 }

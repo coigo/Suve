@@ -1,28 +1,19 @@
 import Express from "express";
 import { router } from "./routes";
-import MongoConnect from "../mongoDb/MongoConnect";
 import dotenv from 'dotenv'
 import cors from 'cors'
 import { globalErrorHandler } from "../../controllers/ErrorController";
 import cookieParser from 'cookie-parser'
 import { authenticate } from "../middleware/auth";
+import MongoConnect from "../mongoDb/MongoConnect";
 
 dotenv.config()
 
 const app = Express()
 const PORT = process.env.apiPort
-const mongoPath = process.env.mongoPath
 const url = process.env.appUrl
 
-const user = process.env.mongoUser
-const pass = process.env.mongoPass
-
-await MongoConnect(mongoPath, {
-    user,
-    pass
-})
-
-
+MongoConnect()
 
 app.use(
     cors({

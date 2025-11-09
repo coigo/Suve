@@ -3,6 +3,7 @@ import Video from '../model/Video'
 import Comment from '../model/Comment'
 import { getRandomValues, sortByKey } from '../util/array'
 import { minioClient } from '../infra/minio/micioClient'
+import { IVideoRepository } from './interface/IVideoRepository'
 
 type fileProps = {
     originalname: string
@@ -44,7 +45,7 @@ type Upvote = {
 }
 
 
-export default class VideoRepository {
+export default class VideoRepository implements IVideoRepository{
 
     async writeVideo(publicId: string, stream: Buffer) {
         try {
@@ -59,7 +60,6 @@ export default class VideoRepository {
     }
 
     async addVideoAttributes(publicId: string, att: any) {
-        console.log('oio')
         const video = await Video.findOne({publicId})
 
         if (!video) throw new Error('Video invalido')

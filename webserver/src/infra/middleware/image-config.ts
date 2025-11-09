@@ -2,6 +2,7 @@ import multer from "multer";
 import  path from "node:path";
 import { randomUUID } from "node:crypto";
 import dotenv from 'dotenv'
+import { Request } from "express";
 
 dotenv.config()
 
@@ -21,7 +22,7 @@ export default {
        },
     }),
     
-    fileFilter: (req, file, cb) => {
+    fileFilter: (req: Request, file: Express.Multer.File , cb: multer.FileFilterCallback) => {
         const allowedMimes = [
             'image/png'
         ]

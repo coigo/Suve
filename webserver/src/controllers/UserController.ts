@@ -18,7 +18,7 @@ export default class UserController {
 		try {
 			const signUp = await this.user.signUp(body);
 			return res.send(body).status(200);
-		} catch (err) {
+		} catch (err:any) {
 			res.status(err.statusCode);
 			res.send(err);
 		}

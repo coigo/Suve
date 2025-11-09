@@ -22,7 +22,7 @@ router.post('/public/video/comment', video.createComment)
 router.get('/public/video/:videoId/comment', video.getComments)
 
 router.post('/auth/upload/:publicId', multer(imageConfig).single('file'),video.addVideoAttributes)
-router.post('/auth/upload', multer(multerConfig).single('file'), upload.handle)
+router.post('/auth/upload',  upload.handle)
 router.post('/auth/video/upvote', video.upvoteVideo)
 router.get('/public/videoImage/:image', video.getVideoImage)
 

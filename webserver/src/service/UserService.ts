@@ -1,14 +1,8 @@
 import dotenv from "dotenv";
 import axios from "axios";
+import { IUser } from "repository/interface/IUserRepository";
 
 dotenv.config();
-
-interface IUser {
-    userId: number
-	email?: string
-	username?: string
-    upvoteAmmount?: number
-}
 
 interface AuthDTO {
 	user: string

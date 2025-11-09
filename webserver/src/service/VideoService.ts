@@ -1,67 +1,6 @@
+import { commentProps, IVideoRepository, Upvote, VideoAttributes } from "repository/interface/IVideoRepository"
 import { getRandomValues, sortByKey } from "../util/array"
-
-type commentProps = {
-    id?: string
-    videoId: string
-    comment: string
-    userId: number
-    username: string
-    createdAt?: Date
-    updatedAt?: Date
-}
-
-type Upvote = {
-    videoId: string
-    upvotes?: number
-    userId: number
-}
-
-type VideoAttributes = {
-    title: string
-}
-
-type Video = {
-    name: string,
-    title: string,
-    size: number,
-    publicId: string,
-    upvotes: number,
-    weight: number,
-    userId: number,
-    url: string,
-    imagemName: string,
-    tags: string[]
-}
-
-interface IVideoRepository {
-    createComment(comment: commentProps): Promise<commentProps>
-
-    getComments(videoId: string, last: number): Promise<commentProps[]>
-
-    addVideoAttributes(publicId: string, att: VideoAttributes): Promise<Upvote | undefined>
-
-    upvote(data: Upvote): Promise<Upvote | undefined>
-
-    getVideosByInterests(interests: string[]): Promise<Video[]>
-
-    getVideosBySearch(search: string) : Promise<Video[]>
-    
-    getTopRatedVideos(): Promise<Video[]>
-}
-
-interface IUserRepository {
-    decreaseUpvote(userId: number): Promise<any>
-    
-    addToUpvotedVideos(data: Upvote): Promise<Upvote>
-    
-    getUpvotedVideos(userId: number): Promise<string[]>
-    
-    getUserInterests(userId: number): Promise<string[]>
-    
-    addUserInterests(userId: number, interests: string[]): Promise<any>
-
-}
-
+import { IUserRepository } from "repository/interface/IUserRepository"
 export class VideoService {
 
     constructor(
@@ -104,10 +43,6 @@ export class VideoService {
         
         const videos = await this.repository.getVideosByInterests(interests)
         return videos
-        const orderedVideos = sortByKey("peso", videos).reverse()
-        const  moreRatedVideos = orderedVideos.slice(1, 15)
-        console.log(moreRatedVideos)
-        return getRandomValues(moreRatedVideos, 10)
         
     }
     
